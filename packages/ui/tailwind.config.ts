@@ -1,13 +1,13 @@
-import type { Config } from "tailwindcss"
+import type { Config } from "tailwindcss";
 
 const config = {
   darkMode: ["class"],
   content: [
-    './pages/**/*.{ts,tsx}',
-    './components/**/*.{ts,tsx}',
-    './app/**/*.{ts,tsx}',
-    './src/**/*.{ts,tsx}',
-	],
+    "./pages/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./app/**/*.{ts,tsx}",
+    "./src/**/*.{ts,tsx}",
+  ],
   prefix: "",
   theme: {
     container: {
@@ -24,6 +24,7 @@ const config = {
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
+        contrast: "hsl(var(--contrast))",
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
@@ -67,14 +68,43 @@ const config = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
+        scribble: {
+          "0%": { clipPath: "inset(0 100% 0 0)" },
+          "100%": { clipPath: "inset(0 0 0 0)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        scribble: "scribble 0.5s ease-out forwards",
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
-} satisfies Config
+  plugins: [
+    // @ts-ignore
+    require("tailwindcss-animate"),
+    function ({ addUtilities }: { addUtilities: Function }) {
+      const newUtilities = {
+        ".scribble-underline": {
+          position: "relative",
+          "&::after": {
+            content: '""',
+            position: "absolute",
+            bottom: "-5px",
+            left: "-5px",
+            right: "-5px",
+            height: "20px",
+            background: "none",
+            backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 30' preserveAspectRatio='none'%3E%3Cpath d='M0,15 C30,5 50,25 70,15 S100,5 130,15 S150,25 180,15 S210,5 240,15 S270,25 300,15 S330,5 360,15 S390,25 420,15 S450,5 480,15 S510,25 540,15 S570,5 600,15' fill='none' stroke='%23000000' stroke-width='2' style='stroke-dasharray: 1000; stroke-dashoffset: 1000;'/%3E%3C/svg%3E")`,
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "100% 100%",
+            animation: "scribble 2s ease-out forwards",
+          },
+        },
+      };
+      addUtilities(newUtilities, ["hover", "active"]);
+    },
+  ],
+} satisfies Config;
 
-export default config
+export default config;

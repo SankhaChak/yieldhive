@@ -1,10 +1,13 @@
-// tailwind config is required for editor support
-
-import sharedConfig from "@yieldhive/tailwind-config";
+import sharedConfig from "@yieldhive/ui/tailwind.config.ts";
 import type { Config } from "tailwindcss";
 
 const config: Pick<Config, "content" | "presets"> = {
-  content: ["./src/app/**/*.tsx"],
+  content: [
+    "./src/app/**/*.tsx",
+    "./src/components/*.tsx",
+    "./src/components/**/*.tsx",
+    "./src/components/**/**/*.tsx",
+  ],
   presets: [sharedConfig],
 };
 

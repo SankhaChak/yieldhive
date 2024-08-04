@@ -1,16 +1,9 @@
-import { Button } from "@yieldhive/ui/components/ui/button";
-import { Something } from "@yieldhive/utils/types/sample";
+import BackgroundDots from "@yieldhive/ui/components/ui/background-dots";
 
-export default function Page(): JSX.Element {
-  const something: Something = {
-    id: 1,
-    name: "Cool",
-  };
-  console.log("🚀 ~ file: page.tsx:9 ~ Page ~ something:", something);
-
+export default function HomePage(): JSX.Element {
   return (
     <main className="min-h-screen flex items-center justify-center">
-      <Button>Something Cool</Button>
+      <BackgroundDots />
     </main>
   );
 }
