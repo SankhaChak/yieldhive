@@ -1,9 +1,11 @@
 import BackgroundDots from "@yieldhive/ui/components/ui/background-dots";
+import Hero from "../components/layout/hero";
 
 export default function HomePage(): JSX.Element {
   return (
-    <main className="min-h-screen flex items-center justify-center">
+    <div>
       <BackgroundDots />
-    </main>
+      <Hero />
+    </div>
   );
 }

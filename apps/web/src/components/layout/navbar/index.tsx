@@ -11,9 +11,9 @@ const Navbar = () => {
     <header className="fixed top-0 left-0 right-0 isolate z-10 bg-contrast/50 backdrop-filter backdrop-blur-xl shadow-sm">
       <nav
         aria-label="Desktop navigation"
-        className="mx-auto flex container items-center justify-between p-6 py-4 lg:px-8"
+        className="mx-auto flex container items-center justify-between p-6 lg:!px-8 !py-4"
       >
-        <div className="flex-1 md:flex justify-start items-center hidden">
+        <div className="flex-1 hidden md:block justify-start items-center">
           <div className="flex items-center gap-8 [&:hover>a]:opacity-50 [&>a:hover]:opacity-100 [&:hover_button]:opacity-50 [&_button:hover]:!opacity-100">
             {navItems.map((item) => (
               <NavItem key={item.href} item={item}>

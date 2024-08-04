@@ -9,11 +9,14 @@
     "lint": {},
     "type-check": {},
     "dev": {
-      "dependsOn": ["^db:generate"],
+      "dependsOn": ["^ui:build", "^db:generate"],
       "cache": false,
       "persistent": true
     },
     "clean": {
+      "cache": false
+    },
+    "ui:build": {
       "cache": false
     },
     "db:generate": {
