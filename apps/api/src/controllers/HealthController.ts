@@ -1,4 +1,4 @@
-import { STATUS } from "@repo/utils/types/status";
+import { STATUS } from "@yieldhive/utils/types/status";
 import type { Request, Response } from "express";
 import HealthService from "../services/HealthService";
 

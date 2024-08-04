@@ -16,7 +16,7 @@ export const createServer = (): Express => {
   server.use(cookieParser());
   server.use(express.json());
 
-  server.use("/health", healthRouter);
+  server.use("/v1/health", healthRouter);
 
   return server;
 };

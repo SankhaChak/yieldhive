@@ -1,5 +1,5 @@
-import { Button } from "@repo/ui/components/ui/button";
-import { Something } from "@repo/utils/types/sample";
+import { Button } from "@yieldhive/ui/components/ui/button";
+import { Something } from "@yieldhive/utils/types/sample";
 
 export default function Page(): JSX.Element {
   const something: Something = {

@@ -1,5 +1,5 @@
 {
-  "name": "@repo/utils",
+  "name": "@yieldhive/utils",
   "version": "0.0.0",
   "license": "MIT",
   "exports": {
@@ -11,6 +11,6 @@
   },
   "devDependencies": {
     "@types/react": "^18.2.61",
-    "@repo/typescript-config": "workspace:*"
+    "@yieldhive/typescript-config": "workspace:*"
   }
 }

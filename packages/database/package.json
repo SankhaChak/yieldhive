@@ -1,5 +1,5 @@
 {
-  "name": "@repo/database",
+  "name": "@yieldhive/database",
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
@@ -16,6 +16,6 @@
   "devDependencies": {
     "@types/node": "^20.11.24",
     "prisma": "^5.17.0",
-    "@repo/typescript-config": "workspace:*"
+    "@yieldhive/typescript-config": "workspace:*"
   }
 }

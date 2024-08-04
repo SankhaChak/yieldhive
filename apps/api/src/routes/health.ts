@@ -1,4 +1,4 @@
-import { prisma } from "@repo/database";
+import { prisma } from "@yieldhive/database";
 import express, { type Request, type Response, type Router } from "express";
 import HealthController from "../controllers/HealthController";
 import HealthService from "../services/HealthService";

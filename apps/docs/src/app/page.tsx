@@ -1,5 +1,5 @@
+import { Card } from "@yieldhive/ui/card";
 import Image from "next/image";
-import { Card } from "@repo/ui/card";
 
 function Gradient({
   conic,

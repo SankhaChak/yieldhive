@@ -1,5 +1,5 @@
-import { type PrismaClient } from "@repo/database";
-import { STATUS } from "@repo/utils/types/status";
+import { type PrismaClient } from "@yieldhive/database";
+import { STATUS } from "@yieldhive/utils/types/status";
 
 class HealthService {
   private prisma: PrismaClient;
