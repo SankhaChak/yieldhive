@@ -9,16 +9,14 @@ import { cn } from "@yieldhive/ui/lib/utils";
 import { ChevronDown } from "lucide-react";
 import { Fragment, HTMLAttributes, PropsWithChildren } from "react";
 import { INavCard } from "../../../utils/types";
-import NavCard from "./NavCard";
+import NavCard from "./nav-card";
 
-type NavDropdownProps = {
+interface NavDropdownProps {
   className?: HTMLAttributes<HTMLAnchorElement>["className"];
   navCards: INavCard[];
-};
+}
 
-type Props = PropsWithChildren<NavDropdownProps>;
-
-const NavDropdown = (props: Props) => {
+const NavDropdown = (props: PropsWithChildren<NavDropdownProps>) => {
   const { navCards, children, className = "", ...otherProps } = props;
 
   return (

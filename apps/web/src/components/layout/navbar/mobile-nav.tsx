@@ -8,11 +8,11 @@ import {
 } from "@yieldhive/ui/components/ui/sheet";
 import { AlignRight } from "lucide-react";
 import { INavItem } from "../../../utils/types";
-import NavItem from "./NavItem";
+import NavItem from "./nav-item";
 
-type Props = {
+interface Props {
   navItems: INavItem[];
-};
+}
 
 const MobileNav = ({ navItems = [] }: Props) => {
   return (
@@ -33,7 +33,7 @@ const MobileNav = ({ navItems = [] }: Props) => {
           </SheetTitle>
           <div className="flex flex-col items-start pt-12 gap-4">
             {navItems
-              .filter((item) => !!item.href)
+              .filter((item) => Boolean(item.href))
               .map((item) => {
                 return (
                   <NavItem key={item.href} item={item}>

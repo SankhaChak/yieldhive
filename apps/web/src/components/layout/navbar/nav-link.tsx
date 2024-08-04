@@ -1,15 +1,13 @@
 import Link from "next/link";
 import { HTMLAttributes, PropsWithChildren } from "react";
 
-type NavLinkProps = {
+interface NavLinkProps {
   href: string;
   isActive: boolean;
   className?: HTMLAttributes<HTMLAnchorElement>["className"];
-};
+}
 
-type Props = PropsWithChildren<NavLinkProps>;
-
-const NavLink = (props: Props) => {
+const NavLink = (props: PropsWithChildren<NavLinkProps>) => {
   const { href, isActive, children, className = "", ...otherProps } = props;
 
   return (

@@ -3,8 +3,8 @@ import Logo from "@yieldhive/ui/components/ui/logo";
 import { ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { navItems } from "../../../utils/constants";
-import MobileNav from "./MobileNav";
-import NavItem from "./NavItem";
+import MobileNav from "./mobile-nav";
+import NavItem from "./nav-item";
 
 const Navbar = () => {
   return (

@@ -4,19 +4,19 @@ import { cn } from "@yieldhive/ui/lib/utils";
 import { usePathname } from "next/navigation";
 import { HTMLAttributes, PropsWithChildren } from "react";
 import { INavItem } from "../../../utils/types";
-import NavDropdown from "./NavDropdown";
-import NavLink from "./NavLink";
+import NavDropdown from "./nav-dropdown";
+import NavLink from "./nav-link";
 
-type Props = {
+interface Props {
   item: INavItem;
   className?: HTMLAttributes<HTMLAnchorElement>["className"];
-};
+}
 
 const NavItem = (props: PropsWithChildren<Props>) => {
   const { item, children, className = "" } = props;
 
   const pathname = usePathname();
-  const isActive = !!item.href && pathname === item.href;
+  const isActive = Boolean(item.href) && pathname === item.href;
 
   const commonProps = {
     className: cn(
@@ -29,7 +29,7 @@ const NavItem = (props: PropsWithChildren<Props>) => {
     ...props,
   };
 
-  return !!item.href ? (
+  return item.href ? (
     <NavLink href={item.href} isActive={isActive} {...commonProps}>
       {children}
     </NavLink>
