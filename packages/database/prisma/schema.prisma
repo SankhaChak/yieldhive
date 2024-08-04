@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -13,7 +7,85 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Dummy {
-  id    Int     @id @default(autoincrement())
-  value String?
+model User {
+  id                  String               @id @default(cuid())
+  wallet_address      String               @unique
+  transaction_history TransactionHistory[]
+
+  @@index([wallet_address])
+}
+
+model Protocol {
+  id         String     @id @default(cuid())
+  name       String     @unique
+  image_url  String
+  strategies Strategy[]
+  steps      Step[]
+}
+
+model Token {
+  id         String     @id @default(cuid())
+  name       String
+  logo_url   String
+  strategies Strategy[]
+  steps      Step[]
+}
+
+model Strategy {
+  id          String     @id @default(cuid())
+  name        String     @unique
+  slug        String     @unique
+  description String
+  image_url   String
+  apy         String
+  multiplier  String
+  protocols   Protocol[]
+  tokens      Token[]
+  steps       Step[]
+  risks       Risk[]
+  price_feeds String[]
+
+  @@index([slug])
+}
+
+model Step {
+  id          String   @id @default(cuid())
+  name        String
+  amount      String
+  yield       String
+  protocol    Protocol @relation(fields: [protocol_id], references: [id])
+  protocol_id String
+  token       Token    @relation(fields: [token_id], references: [id])
+  token_id    String
+  strategy    Strategy @relation(fields: [strategy_id], references: [id])
+  strategy_id String
+
+  @@index([strategy_id])
+}
+
+model Risk {
+  id          String   @id @default(cuid())
+  name        String
+  strategy    Strategy @relation(fields: [strategy_id], references: [id])
+  strategy_id String
+
+  @@index([strategy_id])
+}
+
+enum TxnStatus {
+  Processing
+  Success
+  Failure
+}
+
+model TransactionHistory {
+  id              String    @id @default(cuid())
+  user            User      @relation(fields: [user_id], references: [id])
+  user_id         String
+  amount          Float
+  transactionType String
+  timestamp       DateTime  @default(now())
+  status          TxnStatus @default(Processing)
+
+  @@index([user_id])
 }
