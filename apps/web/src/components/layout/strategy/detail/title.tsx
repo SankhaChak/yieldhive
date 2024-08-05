@@ -2,9 +2,9 @@
 
 import { motion } from "framer-motion";
 
-type Props = {
+interface Props {
   title: string;
-};
+}
 
 const StrategyDetailTitle = ({ title = "" }: Props) => {
   return (

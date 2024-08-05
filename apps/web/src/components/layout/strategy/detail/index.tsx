@@ -6,9 +6,7 @@ import StrategyDetailStats from "./stats";
 import StrategyDetailTitle from "./title";
 import StrategyDetailTransaction from "./transaction";
 
-type Props = {};
-
-const StrategyDetail = (props: Props) => {
+const StrategyDetail = () => {
   return (
     <div className="container mx-auto relative pt-12 md:pt-16 lg:pt-28 text-primary">
       <StrategyDetailTitle title="USDC Sensei" />
@@ -42,15 +40,6 @@ const StrategyDetail = (props: Props) => {
         <div className="pb-10">
           <StrategyDetailTransactionHistory />
         </div>
-        {/* <Card className="p-4">
-          <h2>Transaction History</h2>
-          <p>
-            No transactions recorded since this feature was added. We use
-            your browser's storage to save your transaction history. Make a
-            deposit or withdrawal to see your transactions here. Clearning
-            browser cache will remove this data.
-          </p>
-        </Card> */}
       </div>
     </div>
   );

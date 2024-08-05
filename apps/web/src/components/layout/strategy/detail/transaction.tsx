@@ -8,11 +8,7 @@ import { cn } from "@yieldhive/ui/lib/utils";
 import { motion } from "framer-motion";
 import { ChevronRight } from "lucide-react";
 import { useState } from "react";
-
-enum TABS {
-  DEPOSIT = "deposit",
-  WITHDRAW = "withdraw",
-}
+import { TABS } from "../../../../utils/types";
 
 const StrategyDetailTransaction = () => {
   // TODO: Replace with actual wallet connection status

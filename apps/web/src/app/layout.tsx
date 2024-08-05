@@ -2,7 +2,7 @@ import "@yieldhive/ui/styles.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Navbar from "../components/layout/navbar";
-import NprogressProvider from "../components/providers/NProgressProvider";
+import NprogressProvider from "../components/providers/nprogress";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });

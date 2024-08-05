@@ -10,3 +10,8 @@ export interface INavItem {
   children: React.ReactNode;
   cards?: INavCard[];
 }
+
+export enum TABS {
+  DEPOSIT = "deposit",
+  WITHDRAW = "withdraw",
+}

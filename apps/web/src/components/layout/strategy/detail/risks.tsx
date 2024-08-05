@@ -36,7 +36,7 @@ const StrategyDetailRisks = () => {
               .fill("")
               .map((_, idx) => (
                 <p key={idx} className="font-medium text-sm">
-                  {idx + 1}. Supply's your USDC to zkLend
+                  {idx + 1}. Supply&apos;s your USDC to zkLend
                 </p>
               ))}
           </div>

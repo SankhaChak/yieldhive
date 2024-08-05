@@ -75,8 +75,8 @@ const StrategyDetailTransactionHistory = () => {
           ) : (
             <p className="text-[15px] font-semibold text-primary/70">
               No transactions recorded since this feature was added. We use
-              your browser's storage to save your transaction history. Make a
-              deposit or withdrawal to see your transactions here. Clearning
+              your browser&apos;s storage to save your transaction history. Make
+              a deposit or withdrawal to see your transactions here. Clearning
               browser cache will remove this data.
             </p>
           )}

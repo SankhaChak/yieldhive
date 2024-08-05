@@ -61,7 +61,7 @@ const StrategyDetailBTS = () => {
                 .map((_, idx) => (
                   <TableRow key={idx} className="border-none">
                     <TableCell className="!px-0 !py-2">
-                      {idx + 1}. Supply's your USDC to zkLend
+                      {idx + 1}. Supply&apos;s your USDC to zkLend
                     </TableCell>
                     <TableCell className="!px-0 !py-2">
                       <div className="flex items-center gap-1">

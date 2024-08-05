@@ -15,11 +15,15 @@ const StrategyCard = () => {
   const isInView = useInView(cardRef, { once: true });
 
   if (isInView) {
-    controls.start({
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.5, ease: "anticipate" },
-    });
+    controls
+      .start({
+        opacity: 1,
+        y: 0,
+        transition: { duration: 0.5, ease: "anticipate" },
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }
 
   return (
