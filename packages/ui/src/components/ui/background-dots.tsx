@@ -43,7 +43,7 @@ const BackgroundDots: React.FC<DotPatternBackgroundProps> = (
 
   return (
     <div
-      className={`fixed inset-0 h-screen w-full ${className}`}
+      className={`fixed inset-0 h-screen w-full pointer-events-none ${className}`}
       style={backgroundStyle}
       {...otherProps}
     />
