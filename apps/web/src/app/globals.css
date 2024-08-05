@@ -25,3 +25,7 @@ body {
     )
     rgb(var(--background-start-rgb));
 } */
+
+*::selection {
+  background: rgba(139, 129, 227, 0.6);
+}

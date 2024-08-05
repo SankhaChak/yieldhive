@@ -8,7 +8,7 @@ import Link from "next/link";
 
 const Hero = () => {
   return (
-    <div className="container mx-auto relative mt-28 md:mt-40 lg:mt-52 text-primary">
+    <div className="container mx-auto relative pt-28 md:pt-40 lg:pt-52 text-primary">
       <motion.h1
         initial={{
           opacity: 0,
