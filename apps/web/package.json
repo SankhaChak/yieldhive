@@ -15,6 +15,7 @@
     "@web3modal/wagmi": "^5.0.11",
     "@yieldhive/ui": "workspace:*",
     "@yieldhive/utils": "workspace:*",
+    "axios": "^1.7.3",
     "framer-motion": "^11.3.21",
     "lodash": "^4.17.21",
     "lucide-react": "^0.424.0",
@@ -22,8 +23,10 @@
     "next-nprogress-bar": "^2.3.13",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "usehooks-ts": "^3.1.0",
     "viem": "^2.18.8",
-    "wagmi": "^2.12.2"
+    "wagmi": "^2.12.2",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@next/eslint-plugin-next": "^14.2.3",

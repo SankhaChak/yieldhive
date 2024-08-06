@@ -10,16 +10,19 @@ import express, {
 import AuthController from "../controllers/AuthController";
 import { validate } from "../middlewares/validator";
 import AuthService from "../services/AuthService";
+import TokenService from "../services/TokenService";
 
 const router: Router = express.Router();
 
 const userTable = prisma.user;
 
 const authService = new AuthService(userTable);
-const authController = new AuthController(authService);
+const tokenService = new TokenService();
+
+const authController = new AuthController(authService, tokenService);
 
 router.post(
-  "/signin",
+  "/login",
   validate({ body: authenticateUserSchema }),
   (req: Request, res: Response, next: NextFunction) =>
     authController.authenticateUser(req as AuthenticateRequest, res, next)

@@ -9,7 +9,7 @@ export const createServer = (): Express => {
 
   server.use(
     cors({
-      // origin: [], // Add frontend URL here
+      origin: ["http://localhost:3000"], // Add frontend URL here
       credentials: true,
     })
   );

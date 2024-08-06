@@ -16,7 +16,7 @@ class AuthService {
       update: { wallet_address: walletAddress },
     });
 
-    return { id: user.id };
+    return user;
   }
 }
 

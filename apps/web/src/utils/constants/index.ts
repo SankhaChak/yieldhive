@@ -51,3 +51,5 @@ export const navItems: INavItem[] = [
     children: "Contact",
   },
 ];
+
+export const LOCALSTORAGE_IS_AUTHENTICATED = "is-authenticated";

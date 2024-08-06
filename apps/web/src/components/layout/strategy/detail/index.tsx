@@ -8,7 +8,7 @@ import StrategyDetailTransaction from "./transaction";
 
 const StrategyDetail = () => {
   return (
-    <div className="container mx-auto relative pt-12 md:pt-16 lg:pt-28 text-primary">
+    <div className="container mx-auto relative pt-24 lg:pt-28 text-primary">
       <StrategyDetailTitle title="USDC Sensei" />
       <div className="space-y-6 mt-4">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
