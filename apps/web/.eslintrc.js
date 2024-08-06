@@ -11,5 +11,6 @@ module.exports = {
     ],
     "no-irregular-whitespace": "off",
     "@typescript-eslint/no-misused-promises": "off",
+    "@typescript-eslint/no-floating-promises": "off",
   },
 };
