@@ -25,7 +25,7 @@ const ConnectButton = () => {
   const { mutate: loginUser } = useMutation({
     mutationKey: ["authenticate"],
     mutationFn: login,
-    onSuccess: async ({ data }, variables, context) => {
+    onSuccess: ({ data }: { data: { success: boolean } }) => {
       if (data.success) {
         setIsAuthenticated(true);
       }

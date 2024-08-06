@@ -29,6 +29,7 @@
       "cache": false
     },
     "web#build": {
+      "dependsOn": ["^ui:build"],
       "env": [
         "NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID",
         "NEXT_PUBLIC_BACKEND_ENDPOINT"

@@ -17,7 +17,11 @@ function validateEnv(): EnvSchema {
     return envSchema.parse(clientEnv);
   }
 
-  const serverEnv = {};
+  const serverEnv = {
+    NEXT_PUBLIC_BACKEND_ENDPOINT: process.env.NEXT_PUBLIC_BACKEND_ENDPOINT,
+    NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID:
+      process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID,
+  };
   return envSchema.parse(serverEnv);
 }
 
