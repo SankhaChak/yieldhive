@@ -27,6 +27,12 @@
     },
     "db:migrate": {
       "cache": false
+    },
+    "web#build": {
+      "env": ["NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID"]
+    },
+    "web#dev": {
+      "env": ["NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID"]
     }
   }
 }

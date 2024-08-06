@@ -1,8 +1,7 @@
-import { Button } from "@yieldhive/ui/components/ui/button";
 import Logo from "@yieldhive/ui/components/ui/logo";
-import { ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { navItems } from "../../../utils/constants";
+import ConnectButton from "./connect-button";
 import MobileNav from "./mobile-nav";
 import NavItem from "./nav-item";
 
@@ -28,19 +27,7 @@ const Navbar = () => {
           </Link>
         </div>
         <div className="flex-1 flex justify-end items-center">
-          <Button
-            size="sm"
-            className="bg-accent gap-2 group hover:bg-accent/80 focus-visible:ring-accent"
-          >
-            <span>Connect Wallet</span>
-            <div className="relative">
-              <ChevronRight
-                className="w-4 transform translate-x-0 group-hover:translate-x-[2px] transition-transform duration-300"
-                strokeWidth={2}
-              />
-              <div className="absolute w-[11px] origin-left scale-x-0 group-hover:-scale-x-100 h-[1.5px] bg-contrast left-[11px] top-1/2 transform -translate-y-1/2 transition-all duration-300" />
-            </div>
-          </Button>
+          <ConnectButton />
         </div>
         <div className="block md:hidden ml-8">
           <MobileNav navItems={navItems} />

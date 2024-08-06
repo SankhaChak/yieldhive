@@ -10,5 +10,6 @@ module.exports = {
       { varsIgnorePattern: "^TABS$" },
     ],
     "no-irregular-whitespace": "off",
+    "@typescript-eslint/no-misused-promises": "off",
   },
 };

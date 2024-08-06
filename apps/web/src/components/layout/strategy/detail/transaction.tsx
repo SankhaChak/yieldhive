@@ -1,5 +1,6 @@
 "use client";
 
+import { useWeb3Modal } from "@web3modal/wagmi/react";
 import LockIcon from "@yieldhive/ui/components/icons/lock";
 import { Button } from "@yieldhive/ui/components/ui/button";
 import { Card } from "@yieldhive/ui/components/ui/card";
@@ -8,11 +9,12 @@ import { cn } from "@yieldhive/ui/lib/utils";
 import { motion } from "framer-motion";
 import { ChevronRight } from "lucide-react";
 import { useState } from "react";
+import { useAccount } from "wagmi";
 import { TABS } from "../../../../utils/types";
 
 const StrategyDetailTransaction = () => {
-  // TODO: Replace with actual wallet connection status
-  const isWalletConnected = false;
+  const { isConnected } = useAccount();
+  const { open } = useWeb3Modal();
 
   const [activeTab, setActiveTab] = useState<TABS>(TABS.DEPOSIT);
 
@@ -35,10 +37,10 @@ const StrategyDetailTransaction = () => {
     >
       <Card
         className={cn("h-full w-full overflow-hidden", {
-          "flex items-center justify-center p-4": !isWalletConnected,
+          "flex items-center justify-center p-4": !isConnected,
         })}
       >
-        {isWalletConnected ? (
+        {isConnected ? (
           <div className="h-full flex flex-col">
             <div className="flex items-center border-b">
               <Button
@@ -116,6 +118,7 @@ const StrategyDetailTransaction = () => {
             <Button
               size="sm"
               className="bg-accent gap-2 group hover:bg-accent/80 focus-visible:ring-accent"
+              onClick={() => open()}
             >
               <span>Connect Wallet to deposit or withdraw</span>
               <div className="relative">
