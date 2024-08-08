@@ -7,3 +7,7 @@ export const addStrategySchema = z.object({
   apy: z.string().min(1),
   multiplier: z.string().min(1),
 });
+
+export const getStrategyDetailSchema = z.object({
+  slug: z.string().min(1),
+});

@@ -2,9 +2,16 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { Strategy } from "../../../utils/types";
 import StrategyCard from "./card";
 
-const Strategies = () => {
+interface Props {
+  strategies: Strategy[];
+}
+
+const Strategies = (props: Props) => {
+  const { strategies } = props;
+
   return (
     <div className="container mx-auto">
       <motion.div
@@ -30,17 +37,11 @@ const Strategies = () => {
           },
         }}
       >
-        {Array(5)
-          .fill("")
-          .map((_, index) => (
-            <Link
-              href={`/strategies/${index + 1}`}
-              key={index}
-              className="block"
-            >
-              <StrategyCard />
-            </Link>
-          ))}
+        {strategies.map((_, index) => (
+          <Link href={`/strategies/${index + 1}`} key={index} className="block">
+            <StrategyCard />
+          </Link>
+        ))}
       </motion.div>
     </div>
   );

@@ -8,4 +8,7 @@ export const prisma: PrismaClient = globalThis.prisma || new PrismaClient();
 
 if (process.env.NODE_ENV !== "production") globalThis.prisma = prisma;
 
+export type User = Awaited<ReturnType<typeof prisma.user.findFirst>>;
+export type Strategy = Awaited<ReturnType<typeof prisma.strategy.findFirst>>;
+
 export * from "@prisma/client";

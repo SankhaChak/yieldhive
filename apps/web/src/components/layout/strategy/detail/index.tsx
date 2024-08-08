@@ -1,3 +1,4 @@
+import { Strategy } from "../../../../utils/types";
 import StrategyDetailBTS from "./bts";
 import StrategyDetailDescription from "./description";
 import StrategyDetailTransactionHistory from "./history";
@@ -6,10 +7,16 @@ import StrategyDetailStats from "./stats";
 import StrategyDetailTitle from "./title";
 import StrategyDetailTransaction from "./transaction";
 
-const StrategyDetail = () => {
+interface Props {
+  strategy: Strategy;
+}
+
+const StrategyDetail = (props: Props) => {
+  const { strategy } = props;
+
   return (
     <div className="container mx-auto relative pt-24 lg:pt-28 text-primary">
-      <StrategyDetailTitle title="USDC Sensei" />
+      <StrategyDetailTitle title={strategy.name || "USDC Sensei"} />
       <div className="space-y-6 mt-4">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           <div className="col-span-1 lg:col-span-5">
