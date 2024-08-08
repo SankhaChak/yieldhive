@@ -25,7 +25,7 @@ const StrategyDetailBTS = () => {
       transition={{
         duration: 0.3,
         ease: [0.4, 0.0, 0.2, 1],
-        delay: 0.8,
+        delay: 0.6,
       }}
       className="h-full w-full"
     >

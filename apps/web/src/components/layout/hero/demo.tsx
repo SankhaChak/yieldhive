@@ -1,6 +1,5 @@
 "use client";
 
-import { BorderBeam } from "@yieldhive/ui/components/ui/border-beam";
 import { motion } from "framer-motion";
 import Image from "next/image";
 
@@ -23,7 +22,7 @@ const HeroProductDemo = () => {
       className="container mx-auto"
     >
       <div className="relative rounded-lg mt-12 w-full md:!w-10/12 mx-auto overflow-hidden">
-        <BorderBeam colorFrom="#6E64DD" colorTo="#C3C0F2" borderWidth={3} />
+        {/* <BorderBeam colorFrom="#6E64DD" colorTo="#C3C0F2" borderWidth={3} /> */}
         <Image
           src="https://hackathons.youprotab.com/hackathons/superhack-2024/hero.png"
           height={540}

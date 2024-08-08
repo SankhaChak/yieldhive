@@ -28,7 +28,7 @@ const StrategyDetailTransactionHistory = () => {
       transition={{
         duration: 0.3,
         ease: [0.4, 0.0, 0.2, 1],
-        delay: 1.2,
+        delay: 1,
       }}
     >
       <Card className="p-4 space-y-3">
