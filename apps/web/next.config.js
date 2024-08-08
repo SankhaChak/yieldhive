@@ -7,6 +7,9 @@ module.exports = {
       {
         hostname: "via.placeholder.com",
       },
+      {
+        hostname: "hackathons.youprotab.com",
+      },
     ],
   },
 };

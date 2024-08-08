@@ -72,11 +72,17 @@ const config = {
           "0%": { clipPath: "inset(0 100% 0 0)" },
           "100%": { clipPath: "inset(0 0 0 0)" },
         },
+        "border-beam": {
+          "100%": {
+            "offset-distance": "100%",
+          },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         scribble: "scribble 0.5s ease-out forwards",
+        "border-beam": "border-beam calc(var(--duration)*1s) infinite linear",
       },
     },
   },
