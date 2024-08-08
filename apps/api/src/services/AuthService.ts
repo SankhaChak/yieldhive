@@ -1,6 +1,4 @@
-import { prisma } from "@yieldhive/database";
-
-type UserTable = typeof prisma.user;
+import { UserTable } from "../utils/types/db";
 
 class AuthService {
   private userTable: UserTable;
