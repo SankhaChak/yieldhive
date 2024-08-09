@@ -7,6 +7,17 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum TxnStatus {
+  Processing
+  Success
+  Failure
+}
+
+enum ChainNetwork {
+  Mainnet
+  Testnet
+}
+
 model User {
   id                  String               @id @default(cuid())
   wallet_address      String               @unique
@@ -15,12 +26,20 @@ model User {
   @@index([wallet_address])
 }
 
+model Chain {
+  id        String       @id @default(cuid())
+  name      String       @unique
+  protocols Protocol[]
+  network   ChainNetwork
+}
+
 model Protocol {
   id         String     @id @default(cuid())
   name       String     @unique
   image_url  String
   strategies Strategy[]
   steps      Step[]
+  chains     Chain[]
 }
 
 model Token {
@@ -70,12 +89,6 @@ model Risk {
   strategy_id String
 
   @@index([strategy_id])
-}
-
-enum TxnStatus {
-  Processing
-  Success
-  Failure
 }
 
 model TransactionHistory {

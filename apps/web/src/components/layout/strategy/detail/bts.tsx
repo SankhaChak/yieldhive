@@ -48,6 +48,9 @@ const StrategyDetailBTS = () => {
                   Protocol
                 </TableHead>
                 <TableHead className="text-primary/80 font-semibold p-0">
+                  Chain
+                </TableHead>
+                <TableHead className="text-primary/80 font-semibold p-0">
                   Amount
                 </TableHead>
                 <TableHead className="text-primary/80 font-semibold p-0">
@@ -70,6 +73,9 @@ const StrategyDetailBTS = () => {
                         <div className="h-6 w-6 bg-secondary rounded-full" />{" "}
                         <span>zkLend</span>
                       </div>
+                    </TableCell>
+                    <TableCell className="!px-0 !py-2">
+                      <div className="h-6 w-6 bg-secondary rounded-full" />
                     </TableCell>
                     <TableCell className="!px-0 !py-2">$1,000</TableCell>
                     <TableCell className="!px-0 !py-2">14.48%</TableCell>
