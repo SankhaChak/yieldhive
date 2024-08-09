@@ -1,5 +1,8 @@
-import { prisma } from "@yieldhive/database";
-import { getStrategyDetailSchema } from "@yieldhive/utils/schema/strategy";
+import { prisma, UserRole } from "@yieldhive/database";
+import {
+  addStrategySchema,
+  getStrategyDetailSchema,
+} from "@yieldhive/utils/schema/strategy";
 import express, {
   type NextFunction,
   type Request,
@@ -7,7 +10,9 @@ import express, {
   type Router,
 } from "express";
 import StrategyController from "../controllers/StrategyController";
+import canAccess from "../middlewares/canAccess";
 import { validate } from "../middlewares/validator";
+import { withAuthenticatedUser } from "../middlewares/withUser";
 import StrategyService from "../services/StrategyService";
 
 const router: Router = express.Router();
@@ -24,6 +29,15 @@ router.get("/", (req: Request, res: Response, next: NextFunction) =>
 router.get(
   "/:slug",
   validate({ params: getStrategyDetailSchema }),
+  (req: Request, res: Response, next: NextFunction) =>
+    strategyController.getStrategyDetail(req, res, next)
+);
+
+router.post(
+  "/",
+  withAuthenticatedUser,
+  canAccess([UserRole.ADMIN]),
+  validate({ body: addStrategySchema }),
   (req: Request, res: Response, next: NextFunction) =>
     strategyController.getStrategyDetail(req, res, next)
 );
