@@ -37,8 +37,12 @@ const Strategies = (props: Props) => {
           },
         }}
       >
-        {strategies.map((_, index) => (
-          <Link href={`/strategies/${index + 1}`} key={index} className="block">
+        {strategies.map((strategy, index) => (
+          <Link
+            href={`/strategies/${strategy.slug}`}
+            key={strategy.id}
+            className="block"
+          >
             <StrategyCard />
           </Link>
         ))}
