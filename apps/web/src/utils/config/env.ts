@@ -3,6 +3,7 @@ import { z } from "zod";
 const envSchema = z.object({
   NEXT_PUBLIC_BACKEND_ENDPOINT: z.string().url(),
   NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID: z.string().min(1),
+  NEXT_PUBLIC_FRONTEND_URL: z.string().url(),
 });
 
 type EnvSchema = z.infer<typeof envSchema>;
@@ -13,6 +14,7 @@ function validateEnv(): EnvSchema {
       NEXT_PUBLIC_BACKEND_ENDPOINT: process.env.NEXT_PUBLIC_BACKEND_ENDPOINT,
       NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID:
         process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID,
+      NEXT_PUBLIC_FRONTEND_URL: process.env.NEXT_PUBLIC_FRONTEND_URL,
     };
     return envSchema.parse(clientEnv);
   }
@@ -21,6 +23,7 @@ function validateEnv(): EnvSchema {
     NEXT_PUBLIC_BACKEND_ENDPOINT: process.env.NEXT_PUBLIC_BACKEND_ENDPOINT,
     NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID:
       process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID,
+    NEXT_PUBLIC_FRONTEND_URL: process.env.NEXT_PUBLIC_FRONTEND_URL,
   };
   return envSchema.parse(serverEnv);
 }

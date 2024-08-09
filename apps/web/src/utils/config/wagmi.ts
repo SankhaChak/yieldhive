@@ -8,11 +8,11 @@ export const projectId = ENV.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID;
 export const metadata = {
   name: "YieldHive",
   description: "Multiply your crypto while you sleep peacefully",
-  url: "http://localhost:3000",
+  url: ENV.NEXT_PUBLIC_FRONTEND_URL,
   icons: ["https://avatars.githubusercontent.com/u/37784886"],
 };
 
-const chains = [base, modeTestnet, baseSepolia] as const;
+export const chains = [base, modeTestnet, baseSepolia] as const;
 export const config = defaultWagmiConfig({
   chains,
   projectId,

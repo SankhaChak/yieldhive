@@ -1,3 +1,5 @@
+import { chains } from "../config/wagmi";
+
 export interface INavCard {
   href: string;
   imageUrl: string;
@@ -11,7 +13,7 @@ export interface INavItem {
   cards?: INavCard[];
 }
 
-export enum TABS {
+export enum TRANSACTION_TABS {
   DEPOSIT = "deposit",
   WITHDRAW = "withdraw",
 }
@@ -26,3 +28,5 @@ export interface Strategy {
   multiplier: string;
   price_feeds: string[];
 }
+
+export type ChainId = (typeof chains)[number]["id"];
