@@ -18,9 +18,15 @@ enum ChainNetwork {
   Testnet
 }
 
+enum Role {
+  Admin
+  User
+}
+
 model User {
   id                  String               @id @default(cuid())
   wallet_address      String               @unique
+  role                Role                 @default(User)
   transaction_history TransactionHistory[]
 
   @@index([wallet_address])
