@@ -16,6 +16,14 @@ class AuthService {
 
     return user;
   }
+
+  async getUserById(userId: string) {
+    const user = await this.userTable.findUnique({
+      where: { id: userId },
+    });
+
+    return user;
+  }
 }
 
 export default AuthService;

@@ -10,5 +10,9 @@ export interface AuthenticateRequest extends Request {
 }
 
 export interface AuthenticatedRequest extends Request {
-  user: User;
+  userId: string;
+}
+
+export interface RequestWithUser extends AuthenticatedRequest {
+  user: NonNullable<User>;
 }

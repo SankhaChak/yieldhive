@@ -12,7 +12,7 @@ import express, {
 import StrategyController from "../controllers/StrategyController";
 import canAccess from "../middlewares/canAccess";
 import { validate } from "../middlewares/validator";
-import { withAuthenticatedUser } from "../middlewares/withUser";
+import { withUserId, withValidUser } from "../middlewares/withUser";
 import StrategyService from "../services/StrategyService";
 
 const router: Router = express.Router();
@@ -35,7 +35,8 @@ router.get(
 
 router.post(
   "/",
-  withAuthenticatedUser,
+  withUserId,
+  withValidUser,
   canAccess([UserRole.ADMIN]),
   validate({ body: addStrategySchema }),
   (req: Request, res: Response, next: NextFunction) =>
