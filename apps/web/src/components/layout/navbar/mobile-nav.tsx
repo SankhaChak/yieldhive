@@ -8,6 +8,7 @@ import {
 } from "@yieldhive/ui/components/ui/sheet";
 import { AlignRight } from "lucide-react";
 import { INavItem } from "../../../utils/types";
+import ConnectButton from "./connect-button";
 import NavItem from "./nav-item";
 
 interface Props {
@@ -42,6 +43,7 @@ const MobileNav = ({ navItems = [] }: Props) => {
                 );
               })}
           </div>
+          <ConnectButton />
         </SheetHeader>
       </SheetContent>
     </Sheet>

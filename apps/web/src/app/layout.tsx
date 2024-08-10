@@ -1,6 +1,7 @@
 import "@yieldhive/ui/styles.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import Modal from "../components/layout/modal";
 import Navbar from "../components/layout/navbar";
 import NprogressProvider from "../components/providers/nprogress";
 import Web3ModalProvider from "../components/providers/web3";
@@ -28,6 +29,7 @@ export default function RootLayout({
               <Navbar />
               {children}
             </main>
+            <Modal />
           </NprogressProvider>
         </Web3ModalProvider>
       </body>

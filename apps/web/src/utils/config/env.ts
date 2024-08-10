@@ -1,9 +1,13 @@
+// TODO: Make seperate client and server env schemas and validate them accordingly
 import { z } from "zod";
 
 const envSchema = z.object({
   NEXT_PUBLIC_BACKEND_ENDPOINT: z.string().url(),
   NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID: z.string().min(1),
   NEXT_PUBLIC_FRONTEND_URL: z.string().url(),
+  NEXT_PUBLIC_ALCHEMY_GAS_MANAGER_POLICY_ID: z.string().min(1),
+  NEXT_PUBLIC_ALCHEMY_API_KEY: z.string().min(1),
+  NEXT_PUBLIC_ORG_ID: z.string().min(1),
 });
 
 type EnvSchema = z.infer<typeof envSchema>;
@@ -15,6 +19,10 @@ function validateEnv(): EnvSchema {
       NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID:
         process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID,
       NEXT_PUBLIC_FRONTEND_URL: process.env.NEXT_PUBLIC_FRONTEND_URL,
+      NEXT_PUBLIC_ALCHEMY_GAS_MANAGER_POLICY_ID:
+        process.env.NEXT_PUBLIC_ALCHEMY_GAS_MANAGER_POLICY_ID,
+      NEXT_PUBLIC_ALCHEMY_API_KEY: process.env.NEXT_PUBLIC_ALCHEMY_API_KEY,
+      NEXT_PUBLIC_ORG_ID: process.env.NEXT_PUBLIC_ORG_ID,
     };
     return envSchema.parse(clientEnv);
   }
@@ -24,6 +32,10 @@ function validateEnv(): EnvSchema {
     NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID:
       process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID,
     NEXT_PUBLIC_FRONTEND_URL: process.env.NEXT_PUBLIC_FRONTEND_URL,
+    NEXT_PUBLIC_ALCHEMY_GAS_MANAGER_POLICY_ID:
+      process.env.NEXT_PUBLIC_ALCHEMY_GAS_MANAGER_POLICY_ID,
+    NEXT_PUBLIC_ALCHEMY_API_KEY: process.env.NEXT_PUBLIC_ALCHEMY_API_KEY,
+    NEXT_PUBLIC_ORG_ID: process.env.NEXT_PUBLIC_ORG_ID,
   };
   return envSchema.parse(serverEnv);
 }

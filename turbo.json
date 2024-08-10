@@ -32,13 +32,17 @@
       "dependsOn": ["^ui:build"],
       "env": [
         "NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID",
-        "NEXT_PUBLIC_BACKEND_ENDPOINT"
+        "NEXT_PUBLIC_BACKEND_ENDPOINT",
+        "NEXT_PUBLIC_FRONTEND_URL",
+        "NEXT_PUBLIC_ALCHEMY_GAS_MANAGER_POLICY_ID"
       ]
     },
     "web#dev": {
       "env": [
         "NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID",
-        "NEXT_PUBLIC_BACKEND_ENDPOINT"
+        "NEXT_PUBLIC_BACKEND_ENDPOINT",
+        "NEXT_PUBLIC_FRONTEND_URL",
+        "NEXT_PUBLIC_ALCHEMY_GAS_MANAGER_POLICY_ID"
       ]
     }
   }

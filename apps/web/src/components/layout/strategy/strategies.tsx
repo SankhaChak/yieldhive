@@ -37,7 +37,7 @@ const Strategies = (props: Props) => {
           },
         }}
       >
-        {strategies.map((strategy, index) => (
+        {strategies.map((strategy) => (
           <Link
             href={`/strategies/${strategy.slug}`}
             key={strategy.id}

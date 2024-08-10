@@ -16,7 +16,11 @@ import { CONTRACT_ADDRESS } from "../../../../utils/constants";
 import { TRANSACTION_TABS } from "../../../../utils/types";
 
 const StrategyDetailTransaction = () => {
-  const { isConnected, address, chainId } = useAccount();
+  const {
+    isConnected,
+    address,
+    // chainId
+  } = useAccount();
   const { open } = useWeb3Modal();
   // const {data, error} = useReadContract({
   //   account: address,
@@ -50,7 +54,7 @@ const StrategyDetailTransaction = () => {
     refetchOnWindowFocus: false,
   });
 
-  const handleTransaction = useCallback(async () => {
+  const handleTransaction = useCallback(() => {
     // TODO: Add check if amount is > invested amount for withdraw and amount > wallet balance for deposit
     if (!address) return;
 
