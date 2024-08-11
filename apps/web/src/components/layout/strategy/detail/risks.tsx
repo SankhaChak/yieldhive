@@ -1,9 +1,14 @@
 "use client";
 
+import { Strategy } from "@yieldhive/database";
 import { Card } from "@yieldhive/ui/components/ui/card";
 import { motion } from "framer-motion";
 
-const StrategyDetailRisks = () => {
+interface Props {
+  risks: NonNullable<Strategy>["risks"];
+}
+
+const StrategyDetailRisks = ({ risks }: Props) => {
   return (
     <motion.div
       initial={{
@@ -32,13 +37,11 @@ const StrategyDetailRisks = () => {
           </div>
 
           <div className="space-y-5">
-            {Array(8)
-              .fill("")
-              .map((_, idx) => (
-                <p key={idx} className="font-medium text-sm">
-                  {idx + 1}. Supply&apos;s your USDC to zkLend
-                </p>
-              ))}
+            {risks.map((risk, idx) => (
+              <p key={idx} className="font-medium text-sm">
+                {idx + 1}. {risk.name}
+              </p>
+            ))}
           </div>
         </div>
       </Card>

@@ -1,12 +1,12 @@
 "use client";
 
+import { Strategy } from "@yieldhive/database";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { Strategy } from "../../../utils/types";
 import StrategyCard from "./card";
 
 interface Props {
-  strategies: Strategy[];
+  strategies: NonNullable<Strategy>[];
 }
 
 const Strategies = (props: Props) => {
@@ -43,7 +43,7 @@ const Strategies = (props: Props) => {
             key={strategy.id}
             className="block"
           >
-            <StrategyCard />
+            <StrategyCard strategy={strategy as NonNullable<Strategy>} />
           </Link>
         ))}
       </motion.div>

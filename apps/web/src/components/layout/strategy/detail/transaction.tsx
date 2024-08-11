@@ -149,7 +149,7 @@ const StrategyDetailTransaction = () => {
     }
 
     writeContract(writeContractParams);
-  }, [contractAbi, address, activeTab, isSandboxModeActive]);
+  }, [contractAbi, address, activeTab, isSandboxModeActive, amount]);
 
   return (
     <motion.div

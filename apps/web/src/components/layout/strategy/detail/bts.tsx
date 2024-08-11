@@ -1,5 +1,6 @@
 "use client";
 
+import { Strategy } from "@yieldhive/database";
 import { Card } from "@yieldhive/ui/components/ui/card";
 import {
   Table,
@@ -11,7 +12,12 @@ import {
 } from "@yieldhive/ui/components/ui/table";
 import { motion } from "framer-motion";
 
-const StrategyDetailBTS = () => {
+interface Props {
+  bts: NonNullable<Strategy>["steps"];
+  chain: NonNullable<Strategy>["chain"];
+}
+
+const StrategyDetailBTS = ({ bts, chain }: Props) => {
   return (
     <motion.div
       initial={{
@@ -59,28 +65,34 @@ const StrategyDetailBTS = () => {
               </TableRow>
             </TableHeader>
             <TableBody className="font-medium">
-              {Array(8)
-                .fill("")
-                .map((_, idx) => (
-                  <TableRow key={idx} className="border-none">
-                    <TableCell className="!px-0 !py-2">
-                      {idx + 1}. Supply&apos;s your USDC to zkLend
-                    </TableCell>
-                    <TableCell className="!px-0 !py-2">
-                      <div className="flex items-center gap-1">
-                        <div className="h-6 w-6 bg-secondary rounded-full" />{" "}
-                        <span>USDC on</span>
-                        <div className="h-6 w-6 bg-secondary rounded-full" />{" "}
-                        <span>zkLend</span>
-                      </div>
-                    </TableCell>
-                    <TableCell className="!px-0 !py-2">
-                      <div className="h-6 w-6 bg-secondary rounded-full" />
-                    </TableCell>
-                    <TableCell className="!px-0 !py-2">$1,000</TableCell>
-                    <TableCell className="!px-0 !py-2">14.48%</TableCell>
-                  </TableRow>
-                ))}
+              {bts.map((step, idx) => (
+                <TableRow key={idx} className="border-none">
+                  <TableCell className="!px-0 !py-2">
+                    {idx + 1}. {step.name}
+                  </TableCell>
+                  <TableCell className="!px-0 !py-2">
+                    <div className="flex items-center gap-1">
+                      <img
+                        src={step.token.logo_url}
+                        className="h-6 w-6 bg-secondary rounded-full"
+                      />
+                      <span>{step.token.name} on</span>
+
+                      <img
+                        src={step.protocol.image_url}
+                        className="h-6 w-6 bg-secondary rounded-full"
+                      />
+
+                      <span>{step.protocol.name}</span>
+                    </div>
+                  </TableCell>
+                  <TableCell className="!px-0 !py-2">
+                    <p>{chain.name}</p>
+                  </TableCell>
+                  <TableCell className="!px-0 !py-2">{step.amount}</TableCell>
+                  <TableCell className="!px-0 !py-2">{step.yield}%</TableCell>
+                </TableRow>
+              ))}
             </TableBody>
           </Table>
         </div>

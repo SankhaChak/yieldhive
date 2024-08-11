@@ -1,5 +1,6 @@
 "use client";
 
+import { Strategy } from "@yieldhive/database";
 import { motion, useAnimation, useInView } from "framer-motion";
 import { useRef } from "react";
 
@@ -9,7 +10,11 @@ const strategy = {
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec dui eget est tincidunt varius. Donec sit amet turpis eget purus ultricies tincidunt. Sed nec orci nec odio aliquam luctus. Integer et turpis et est aliquet ultricies. Nullam nec nunc nec nunc ultricies tincidunt. Nullam nec nunc nec nunc ultricies tincidunt.",
 };
 
-const StrategyCard = () => {
+interface Props {
+  strategy: NonNullable<Strategy>;
+}
+
+const StrategyCard = ({ strategy }: Props) => {
   const cardRef = useRef<HTMLDivElement>(null);
   const controls = useAnimation();
   const isInView = useInView(cardRef, { once: true });
@@ -40,10 +45,18 @@ const StrategyCard = () => {
         </p>
 
         <div className="mt-12 flex -space-x-2">
+          {strategy.tokens.map((token) => (
+            <img
+              key={token.id}
+              src={token.logo_url}
+              alt={token.name}
+              className="h-8 w-8 rounded-full bg-gray-900 ring ring-contrast group-hover:ring-accent transition-all duration-300"
+            />
+          ))}
+          {/* <span className="h-8 w-8 rounded-full bg-gray-900 ring ring-contrast group-hover:ring-accent transition-all duration-300"></span>
           <span className="h-8 w-8 rounded-full bg-gray-900 ring ring-contrast group-hover:ring-accent transition-all duration-300"></span>
           <span className="h-8 w-8 rounded-full bg-gray-900 ring ring-contrast group-hover:ring-accent transition-all duration-300"></span>
-          <span className="h-8 w-8 rounded-full bg-gray-900 ring ring-contrast group-hover:ring-accent transition-all duration-300"></span>
-          <span className="h-8 w-8 rounded-full bg-gray-900 ring ring-contrast group-hover:ring-accent transition-all duration-300"></span>
+          <span className="h-8 w-8 rounded-full bg-gray-900 ring ring-contrast group-hover:ring-accent transition-all duration-300"></span> */}
         </div>
       </div>
       <div className="w-full col-span-2 relative hidden md:block">

@@ -172,6 +172,9 @@ importers:
       '@types/react-dom':
         specifier: ^18.2.19
         version: 18.2.19
+      '@yieldhive/database':
+        specifier: workspace:*
+        version: link:../../packages/database
       '@yieldhive/eslint-config':
         specifier: workspace:*
         version: link:../../packages/config-eslint

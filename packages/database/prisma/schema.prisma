@@ -33,10 +33,13 @@ model User {
 }
 
 model Chain {
-  id        String       @id @default(cuid())
-  name      String       @unique
-  protocols Protocol[]
-  network   ChainNetwork
+  id                    String       @id @default(cuid())
+  name                  String       @unique
+  protocols             Protocol[]
+  network               ChainNetwork
+  strategy              Strategy[]
+  pyth_contract_address String
+  pyth_contract_abi_url String
 }
 
 model Protocol {
@@ -57,18 +60,21 @@ model Token {
 }
 
 model Strategy {
-  id          String     @id @default(cuid())
-  name        String     @unique
-  slug        String     @unique
-  description String
-  image_url   String
-  apy         String
-  multiplier  String
-  protocols   Protocol[]
-  tokens      Token[]
-  steps       Step[]
-  risks       Risk[]
-  price_feeds String[]
+  id               String     @id @default(cuid())
+  name             String     @unique
+  slug             String     @unique
+  description      String
+  apy              String
+  multiplier       String
+  protocols        Protocol[]
+  tokens           Token[]
+  steps            Step[]
+  risks            Risk[]
+  price_feeds      String[]
+  abi_url          String
+  contract_address String
+  chain            Chain      @relation(fields: [chainId], references: [id])
+  chainId          String
 
   @@index([slug])
 }

@@ -21,7 +21,9 @@ const StrategyDetailTransactionHistory = () => {
     // TODO: Replace with actual strategyId
     .filter((transaction) => transaction.strategyId === "1")
     .filter((transaction) =>
-      isSandboxModeActive ? transaction.isSandboxTransaction : true
+      isSandboxModeActive
+        ? transaction.isSandboxTransaction
+        : !transaction.isSandboxTransaction
     );
 
   return (
@@ -74,9 +76,9 @@ const StrategyDetailTransactionHistory = () => {
                       {transaction.action}
                     </TableCell>
                     <TableCell className="p-0 text-primary/80">
-                      {transaction.amount.toLocaleString("en-US", {
-                        style: "currency",
-                        currency: "USD",
+                      {transaction.amount.toLocaleString(undefined, {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
                       })}{" "}
                       <span className="uppercase">{transaction.currency}</span>
                     </TableCell>

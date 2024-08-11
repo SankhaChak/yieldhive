@@ -18,6 +18,10 @@ class StrategyController {
         strategies,
       });
     } catch (error) {
+      console.log(
+        "🚀 ~ file: StrategyController.ts:21 ~ StrategyController ~ getAllStrategies ~ error:",
+        error
+      );
       if (error instanceof Error) {
         ResponseUtil.error(
           res,

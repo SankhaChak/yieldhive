@@ -8,7 +8,13 @@ class StrategyService {
   }
 
   async getStrategies() {
-    const strategies = await this.strategyTable.findMany();
+    const strategies = await this.strategyTable.findMany({
+      include: {
+        chain: true,
+        protocols: true,
+        tokens: true,
+      },
+    });
     return strategies;
   }
 
@@ -16,6 +22,18 @@ class StrategyService {
     const strategy = await this.strategyTable.findUnique({
       where: {
         slug,
+      },
+      include: {
+        chain: true,
+        protocols: true,
+        tokens: true,
+        steps: {
+          include: {
+            protocol: true,
+            token: true,
+          },
+        },
+        risks: true,
       },
     });
 

@@ -1,15 +1,16 @@
 "use client";
 
+import { Strategy } from "@yieldhive/database";
 import { Card } from "@yieldhive/ui/components/ui/card";
 import { motion } from "framer-motion";
 
 interface Props {
   apy: string;
-  multiplier: string;
+  protocols: NonNullable<Strategy>["protocols"];
 }
 
 const StrategyDetailStats = (props: Props) => {
-  const { apy, multiplier } = props;
+  const { apy, protocols = [] } = props;
 
   return (
     <motion.div
@@ -33,21 +34,29 @@ const StrategyDetailStats = (props: Props) => {
           <h2 className="text-lg font-semibold">APY</h2>
           <div className="flex items-center justify-between">
             <h3 className="text-2xl font-extrabold">{apy}%</h3>
-            <p className="font-semibold opacity-60">{multiplier}x boosted</p>
+            {/* <p className="font-semibold opacity-60">{multiplier}x boosted</p> */}
           </div>
         </div>
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-end">
           <div className="flex items-center -space-x-6">
-            {Array(2)
+            {protocols.map((protocol) => (
+              <img
+                key={protocol.id}
+                src={protocol.image_url}
+                alt={protocol.name}
+                className="w-12 h-12 bg-secondary rounded-full border-2 border-contrast"
+              />
+            ))}
+            {/* {Array(2)
               .fill("")
               .map((_, idx) => (
                 <div
                   key={idx}
                   className="w-12 h-12 bg-secondary rounded-full border-2 border-contrast"
                 />
-              ))}
+              ))} */}
           </div>
-          <p className="text-3xl font-bold">$20,00</p>
+          {/* <p className="text-3xl font-bold">$20,00</p> */}
         </div>
       </Card>
     </motion.div>
