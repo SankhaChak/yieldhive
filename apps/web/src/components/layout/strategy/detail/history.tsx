@@ -10,10 +10,19 @@ import {
   TableRow,
 } from "@yieldhive/ui/components/ui/table";
 import { motion } from "framer-motion";
+import { useSandboxStore } from "../../../../stores/useSandboxStore";
+import { useTransactionStore } from "../../../../stores/useTransactionStore";
 
 const StrategyDetailTransactionHistory = () => {
-  // TODO: Populate with the actual transactions
-  const transactions = [1];
+  const isSandboxModeActive = useSandboxStore((state) => state.isActive);
+  const transactions = useTransactionStore((state) => state.transactions);
+
+  const filteredTransactions = transactions
+    // TODO: Replace with actual strategyId
+    .filter((transaction) => transaction.strategyId === "1")
+    .filter((transaction) =>
+      isSandboxModeActive ? transaction.isSandboxTransaction : true
+    );
 
   return (
     <motion.div
@@ -34,7 +43,7 @@ const StrategyDetailTransactionHistory = () => {
       <Card className="p-4 space-y-3">
         <h2 className="text-lg font-semibold">Transaction History</h2>
         <div>
-          {transactions.length > 0 ? (
+          {filteredTransactions.length > 0 ? (
             <Table>
               <TableHeader>
                 <TableRow className="border-none">
@@ -54,19 +63,25 @@ const StrategyDetailTransactionHistory = () => {
               </TableHeader>
 
               <TableBody>
-                {transactions.map((transaction, index) => (
+                {filteredTransactions.map((transaction, index) => (
                   <TableRow key={index} className="border-none font-medium">
                     <TableCell className="p-0 text-primary/80">
-                      2021-08-01
+                      {new Date(transaction.timestamp).toLocaleDateString(
+                        "en-US"
+                      )}
+                    </TableCell>
+                    <TableCell className="p-0 text-primary/80 !capitalize">
+                      {transaction.action}
                     </TableCell>
                     <TableCell className="p-0 text-primary/80">
-                      Deposit
+                      {transaction.amount.toLocaleString("en-US", {
+                        style: "currency",
+                        currency: "USD",
+                      })}{" "}
+                      <span className="uppercase">{transaction.currency}</span>
                     </TableCell>
-                    <TableCell className="p-0 text-primary/80">
-                      100 USDT
-                    </TableCell>
-                    <TableCell className="p-0 text-primary/80">
-                      Completed
+                    <TableCell className="p-0 text-primary/80 !capitalize">
+                      {transaction.status}
                     </TableCell>
                   </TableRow>
                 ))}

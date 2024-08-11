@@ -9,6 +9,7 @@ type Transaction = {
   status: "pending" | "completed" | "failed";
   timestamp: number;
   isSandboxTransaction: boolean;
+  strategyId: string;
 };
 
 type State = {

@@ -110,6 +110,8 @@ const StrategyDetailTransaction = () => {
         status: "completed",
         timestamp: Date.now(),
         isSandboxTransaction: true,
+        // TODO: Replace with actual strategyId
+        strategyId: "1",
       });
     }
 
