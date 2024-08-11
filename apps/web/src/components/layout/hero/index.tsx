@@ -51,8 +51,8 @@ const Hero = () => {
         }}
         className="text-center mt-4 sm:text-lg md:text-xl lg:text-[22px] md:max-w-prose mx-auto font-medium relative bg-contrast"
       >
-        YieldHive is a decentralized platform that allows you to earn passive
-        income on your crypto assets.
+        Yieldhive is the home for cross-chain and native yield strategy vaults
+        of OP chains.
       </motion.p>
       <motion.div
         initial={{
