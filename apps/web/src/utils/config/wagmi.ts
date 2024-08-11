@@ -1,5 +1,4 @@
 import { defaultWagmiConfig } from "@web3modal/wagmi/react/config";
-
 import { base, baseSepolia, modeTestnet } from "wagmi/chains";
 import { ENV } from "./env";
 

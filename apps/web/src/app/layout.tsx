@@ -3,6 +3,8 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Modal from "../components/layout/modal";
 import Navbar from "../components/layout/navbar";
+import SandboxModeNotification from "../components/layout/sandbox/notification";
+import SandboxModeSwitcher from "../components/layout/sandbox/switcher";
 import NprogressProvider from "../components/providers/nprogress";
 import Web3ModalProvider from "../components/providers/web3";
 import "./globals.css";
@@ -30,6 +32,8 @@ export default function RootLayout({
               {children}
             </main>
             <Modal />
+            <SandboxModeNotification />
+            <SandboxModeSwitcher />
           </NprogressProvider>
         </Web3ModalProvider>
       </body>

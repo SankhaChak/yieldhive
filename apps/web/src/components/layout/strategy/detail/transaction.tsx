@@ -11,6 +11,8 @@ import { motion } from "framer-motion";
 import { ChevronRight } from "lucide-react";
 import { useCallback, useState } from "react";
 import { useAccount, useSwitchChain, useWriteContract } from "wagmi";
+import { useSandboxStore } from "../../../../stores/useSandboxStore";
+import { useTransactionStore } from "../../../../stores/useTransactionStore";
 import {
   getContractABI,
   getPricePyth,
@@ -27,11 +29,8 @@ const StrategyDetailTransaction = () => {
   } = useAccount();
   const { open } = useWeb3Modal();
   const { chains, switchChain } = useSwitchChain();
-  console.log(
-    "🚀 ~ file: transaction.tsx:30 ~ StrategyDetailTransaction ~ chains:",
-    chains
-  );
 
+  // TODO: Handle read USDC balance
   // const {data, error} = useReadContract({
   //   account: address,
   //   functionName: "balanceOf",
@@ -53,7 +52,10 @@ const StrategyDetailTransaction = () => {
   const [activeTab, setActiveTab] = useState<TRANSACTION_TABS>(
     TRANSACTION_TABS.DEPOSIT
   );
-  const [amount, setAmount] = useState<number>();
+  const [amount, setAmount] = useState<number>(0);
+
+  const isSandboxModeActive = useSandboxStore((state) => state.isActive);
+  const addTransaction = useTransactionStore((state) => state.addTransaction);
 
   // TODO: Replace it with strategy.priceFeedIds
   const ids = [
@@ -95,10 +97,21 @@ const StrategyDetailTransaction = () => {
     // TODO: Add check if amount is > invested amount for withdraw and amount > wallet balance for deposit
     if (!address) return;
 
-    const baseChain = chains.find((chain) => chain.name === "Base");
-    if (!baseChain) return;
+    // const baseChain = chains.find((chain) => chain.name === "Base");
+    // if (!baseChain) return;
 
-    switchChain({ chainId: baseChain.id });
+    // switchChain({ chainId: baseChain.id });
+
+    if (isSandboxModeActive) {
+      return addTransaction({
+        action: activeTab === TRANSACTION_TABS.DEPOSIT ? "deposit" : "withdraw",
+        amount,
+        currency: "USDC",
+        status: "completed",
+        timestamp: Date.now(),
+        isSandboxTransaction: true,
+      });
+    }
 
     await fetchPythPrice();
 
@@ -134,7 +147,7 @@ const StrategyDetailTransaction = () => {
     }
 
     writeContract(writeContractParams);
-  }, [contractAbi, address, activeTab]);
+  }, [contractAbi, address, activeTab, isSandboxModeActive]);
 
   return (
     <motion.div
@@ -206,16 +219,27 @@ const StrategyDetailTransaction = () => {
             </div>
             <div className="p-4 flex-1 flex flex-col justify-between">
               <div>
-                <h2 className="font-medium">Available Balance</h2>
+                {/* <h2 className="font-medium">Available Balance</h2>
                 <div className="flex items-end gap-1">
                   <h3 className="text-lg font-semibold">0.00</h3>
                   <button className="text-xs font-bold text-accent relative -top-1">
                     [Max]
                   </button>
-                </div>
+                </div> */}
+                <h2 className="font-medium">
+                  {activeTab === TRANSACTION_TABS.DEPOSIT
+                    ? "Deposit USDC"
+                    : "Withdraw USDC"}
+                </h2>
+                {/* <div className="flex items-end gap-1">
+                  <h3 className="text-lg font-semibold">0.00</h3>
+                  <button className="text-xs font-bold text-accent relative -top-1">
+                    [Max]
+                  </button>
+                </div> */}
               </div>
               <div>
-                <div className="flex gap-3 items-center">
+                <div className="flex gap-3 items-center mt-auto">
                   <Input
                     placeholder="Amount"
                     value={amount}

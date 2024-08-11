@@ -77,12 +77,17 @@ const config = {
             "offset-distance": "100%",
           },
         },
+        orbit: {
+          "0%": { transform: "rotate(0deg)" },
+          "100%": { transform: "rotate(360deg)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         scribble: "scribble 0.5s ease-out forwards",
         "border-beam": "border-beam calc(var(--duration)*1s) infinite linear",
+        orbit: "orbit 10s linear infinite",
       },
     },
   },

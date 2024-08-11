@@ -6,12 +6,14 @@ import { useAccount } from "@alchemy/aa-alchemy/react";
 import { Button } from "@yieldhive/ui/components/ui/button";
 import { usePathname, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
+import { useAccount as useWagmiAccount } from "wagmi";
 import { useModalStore } from "../../../stores/useModalStore";
 import { accountType } from "../../../utils/config/alchemy";
 import { ENV } from "../../../utils/config/env";
 import { ModalName } from "../../../utils/types";
 
 const EmbeddedAccountSignInButton = () => {
+  const { isConnected } = useWagmiAccount();
   const { address } = useAccount({ type: accountType });
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -33,6 +35,10 @@ const EmbeddedAccountSignInButton = () => {
       handleOpenModal(ModalName.EMBEDDED_ACCOUNTS_PROFILE);
     }
   }, [address, pathname]);
+
+  if (isConnected) {
+    return null;
+  }
 
   return (
     <Button size="sm" variant="secondary" onClick={handleButtonClick}>
