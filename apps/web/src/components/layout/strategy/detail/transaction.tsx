@@ -10,7 +10,7 @@ import { cn } from "@yieldhive/ui/lib/utils";
 import { motion } from "framer-motion";
 import { ChevronRight } from "lucide-react";
 import { useCallback, useState } from "react";
-import { useAccount, useSwitchChain, useWriteContract } from "wagmi";
+import { useAccount, useWriteContract } from "wagmi";
 import { useSandboxStore } from "../../../../stores/useSandboxStore";
 import { useTransactionStore } from "../../../../stores/useTransactionStore";
 import {
@@ -28,7 +28,7 @@ const StrategyDetailTransaction = () => {
     // chainId
   } = useAccount();
   const { open } = useWeb3Modal();
-  const { chains, switchChain } = useSwitchChain();
+  // const { chains, switchChain } = useSwitchChain();
 
   // TODO: Handle read USDC balance
   // const {data, error} = useReadContract({
@@ -85,8 +85,8 @@ const StrategyDetailTransaction = () => {
   const { data: pythPriceData, refetch: fetchPythPrice } = useQuery({
     queryKey: ["pyth", ids],
     queryFn: async ({ queryKey }) => {
-      const ids = queryKey[1];
-      const { data } = await getPricePyth(ids as string[]);
+      const pythIds = queryKey[1];
+      const { data } = await getPricePyth(pythIds as string[]);
       return data;
     },
     refetchOnWindowFocus: false,

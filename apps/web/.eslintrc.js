@@ -18,5 +18,9 @@ module.exports = {
     "@typescript-eslint/no-non-null-assertion": "off",
     "@typescript-eslint/non-nullable-type-assertion-style": "off",
     "@typescript-eslint/restrict-template-expressions": "off",
+    "unicorn/filename-case": "off",
+    "@typescript-eslint/ban-ts-comment": "off",
+    "@typescript-eslint/prefer-ts-expect-error": "off",
+    "@typescript-eslint/no-empty-interface": "off",
   },
 };

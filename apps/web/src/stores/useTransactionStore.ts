@@ -2,7 +2,7 @@ import { create } from "zustand";
 import { devtools } from "zustand/middleware";
 import { immer } from "zustand/middleware/immer";
 
-type Transaction = {
+interface Transaction {
   action: "deposit" | "withdraw";
   amount: number;
   currency: string;
@@ -10,16 +10,16 @@ type Transaction = {
   timestamp: number;
   isSandboxTransaction: boolean;
   strategyId: string;
-};
+}
 
-type State = {
+interface State {
   sandboxBalance: number;
   setSandboxBalance: (value: number) => void;
   balance: number;
   setBalance: (value: number) => void;
   transactions: Transaction[];
   addTransaction: (transaction: Transaction) => void;
-};
+}
 
 export const useTransactionStore = create<State>()(
   devtools(

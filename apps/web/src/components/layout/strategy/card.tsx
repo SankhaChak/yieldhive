@@ -4,12 +4,6 @@ import { Strategy } from "@yieldhive/database";
 import { motion, useAnimation, useInView } from "framer-motion";
 import { useRef } from "react";
 
-const strategy = {
-  name: "Strategy 1",
-  description:
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec dui eget est tincidunt varius. Donec sit amet turpis eget purus ultricies tincidunt. Sed nec orci nec odio aliquam luctus. Integer et turpis et est aliquet ultricies. Nullam nec nunc nec nunc ultricies tincidunt. Nullam nec nunc nec nunc ultricies tincidunt.",
-};
-
 interface Props {
   strategy: NonNullable<Strategy>;
 }

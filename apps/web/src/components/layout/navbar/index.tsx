@@ -1,5 +1,6 @@
 import Logo from "@yieldhive/ui/components/ui/logo";
 import Link from "next/link";
+import { Suspense } from "react";
 import { navItems } from "../../../utils/constants";
 import ConnectButton from "./connect-button";
 import EmbeddedAccountSignInButton from "./embedded-account-poc";
@@ -29,7 +30,9 @@ const Navbar = () => {
             </Link>
           </div>
           <div className="flex-1 justify-end items-center hidden md:!flex gap-2">
-            <EmbeddedAccountSignInButton />
+            <Suspense fallback={<></>}>
+              <EmbeddedAccountSignInButton />
+            </Suspense>
             <ConnectButton />
           </div>
           <div className="block md:hidden ml-8">

@@ -74,12 +74,14 @@ const StrategyDetailBTS = ({ bts, chain }: Props) => {
                     <div className="flex items-center gap-1">
                       <img
                         src={step.token.logo_url}
+                        alt={step.token.name}
                         className="h-6 w-6 bg-secondary rounded-full"
                       />
                       <span>{step.token.name} on</span>
 
                       <img
                         src={step.protocol.image_url}
+                        alt={step.protocol.name}
                         className="h-6 w-6 bg-secondary rounded-full"
                       />
 

@@ -43,7 +43,7 @@ const Strategies = (props: Props) => {
             key={strategy.id}
             className="block"
           >
-            <StrategyCard strategy={strategy as NonNullable<Strategy>} />
+            <StrategyCard strategy={strategy} />
           </Link>
         ))}
       </motion.div>

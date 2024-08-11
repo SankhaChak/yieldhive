@@ -4,9 +4,9 @@ import { immer } from "zustand/middleware/immer";
 import { ModalName } from "../utils/types";
 
 // TODO: we should keep adding more modal props here as we add more modals
-type ModalProps = {};
+interface ModalProps {}
 
-type State = {
+interface State {
   showModal: boolean;
   setShowModal: (value: boolean | ((prevState: boolean) => boolean)) => void;
   modalName: ModalName | null;
@@ -17,7 +17,7 @@ type State = {
   ) => void;
   handleOpenModal: (modalName: ModalName, props?: ModalProps) => void;
   handleCloseModal: (resetModalDetails?: boolean) => void;
-};
+}
 
 export const useModalStore = create<State>()(
   devtools(
