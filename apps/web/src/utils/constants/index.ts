@@ -1,5 +1,4 @@
-import { base, baseSepolia, modeTestnet } from "wagmi/chains";
-import { ChainId, INavItem } from "../types";
+import { INavItem } from "../types";
 
 export const navItems: INavItem[] = [
   {
@@ -63,15 +62,4 @@ export const CONTRACT_ADDRESS: Record<string, `0x${string}`> = {
 
 export const TOKEN_ADDRESS: Record<string, `0x${string}`> = {
   USDC: "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
-};
-
-export const USDC_CONTRACT_ADDRESS: Record<ChainId, `0x${string}`> = {
-  [base.id]: "0x833589fcd6edb6e08f4c7c32d4f71b54bda02913",
-  [baseSepolia.id]: "0x5deac602762362fe5f135fa5904351916053cf70",
-  // [baseSepolia.id]: "0x036CbD53842c5426634e7929541eC2318f3dCF7e",
-  [modeTestnet.id]: "0xd988097fb8612cc24eeC14542bC03424c656005f",
-  // [mainnet.id]: "0x833589fcd6edb6e08f4c7c32d4f71b54bda02913",
-  // [mainnet.id]: "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
-  // [mainnet.id]: "0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae",
-  // [sepolia.id]: "0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238",
 };

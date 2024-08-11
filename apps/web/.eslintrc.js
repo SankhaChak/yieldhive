@@ -22,5 +22,6 @@ module.exports = {
     "@typescript-eslint/ban-ts-comment": "off",
     "@typescript-eslint/prefer-ts-expect-error": "off",
     "@typescript-eslint/no-empty-interface": "off",
+    "no-bitwise": "off",
   },
 };
