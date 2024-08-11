@@ -13,13 +13,17 @@ import { motion } from "framer-motion";
 import { useSandboxStore } from "../../../../stores/useSandboxStore";
 import { useTransactionStore } from "../../../../stores/useTransactionStore";
 
-const StrategyDetailTransactionHistory = () => {
+interface Props {
+  strategyId: string;
+}
+
+const StrategyDetailTransactionHistory = ({ strategyId }: Props) => {
   const isSandboxModeActive = useSandboxStore((state) => state.isActive);
   const transactions = useTransactionStore((state) => state.transactions);
 
   const filteredTransactions = transactions
     // TODO: Replace with actual strategyId
-    .filter((transaction) => transaction.strategyId === "1")
+    .filter((transaction) => transaction.strategyId === strategyId)
     .filter((transaction) =>
       isSandboxModeActive
         ? transaction.isSandboxTransaction
