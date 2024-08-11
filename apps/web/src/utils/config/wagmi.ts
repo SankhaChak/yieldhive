@@ -8,7 +8,7 @@ export const metadata = {
   name: "YieldHive",
   description: "Multiply your crypto while you sleep peacefully",
   url: ENV.NEXT_PUBLIC_FRONTEND_URL,
-  icons: ["https://avatars.githubusercontent.com/u/37784886"],
+  icons: [],
 };
 
 const tenderlyChain = {
