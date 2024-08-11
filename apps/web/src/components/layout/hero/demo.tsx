@@ -25,8 +25,8 @@ const HeroProductDemo = () => {
         {/* <BorderBeam colorFrom="#6E64DD" colorTo="#C3C0F2" borderWidth={3} /> */}
         <Image
           src="https://hackathons.youprotab.com/hackathons/superhack-2024/hero.png"
-          height={540}
-          width={720}
+          height={720}
+          width={1080}
           alt="Hero Product Demo"
           className="w-full"
         />
