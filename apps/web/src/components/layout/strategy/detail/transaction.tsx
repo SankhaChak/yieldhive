@@ -10,8 +10,12 @@ import { cn } from "@yieldhive/ui/lib/utils";
 import { motion } from "framer-motion";
 import { ChevronRight } from "lucide-react";
 import { useCallback, useState } from "react";
-import { useAccount, useWriteContract } from "wagmi";
-import { getContractABI } from "../../../../utils/api/contract";
+import { useAccount, useSwitchChain, useWriteContract } from "wagmi";
+import {
+  getContractABI,
+  getPricePyth,
+  getPythContractABI,
+} from "../../../../utils/api/contract";
 import { CONTRACT_ADDRESS } from "../../../../utils/constants";
 import { TRANSACTION_TABS } from "../../../../utils/types";
 
@@ -22,6 +26,12 @@ const StrategyDetailTransaction = () => {
     // chainId
   } = useAccount();
   const { open } = useWeb3Modal();
+  const { chains, switchChain } = useSwitchChain();
+  console.log(
+    "🚀 ~ file: transaction.tsx:30 ~ StrategyDetailTransaction ~ chains:",
+    chains
+  );
+
   // const {data, error} = useReadContract({
   //   account: address,
   //   functionName: "balanceOf",
@@ -45,8 +55,24 @@ const StrategyDetailTransaction = () => {
   );
   const [amount, setAmount] = useState<number>();
 
+  // TODO: Replace it with strategy.priceFeedIds
+  const ids = [
+    "0xeaa020c61cc479712813461ce153894a96a6c00b21ed0cfc2798d1f9a9e9c94a",
+    "0x15ecddd26d49e1a8f1de9376ebebc03916ede873447c1255d2d5891b92ce5717",
+    "0x9db37f4d5654aad3e37e2e14ffd8d53265fb3026d1d8f91146539eebaa2ef45f",
+  ];
+
+  const { data: pythContractAbi } = useQuery({
+    queryKey: ["pyth", "price"],
+    queryFn: async () => {
+      const { data } = await getPythContractABI();
+      return data;
+    },
+    refetchOnWindowFocus: false,
+  });
+
   const { data: contractAbi } = useQuery({
-    queryKey: ["strategy", "transactions"],
+    queryKey: ["strategy", "id"],
     queryFn: async () => {
       const { data } = await getContractABI("strategy-abi");
       return data;
@@ -54,9 +80,39 @@ const StrategyDetailTransaction = () => {
     refetchOnWindowFocus: false,
   });
 
-  const handleTransaction = useCallback(() => {
+  const { data: pythPriceData, refetch: fetchPythPrice } = useQuery({
+    queryKey: ["pyth", ids],
+    queryFn: async ({ queryKey }) => {
+      const ids = queryKey[1];
+      const { data } = await getPricePyth(ids as string[]);
+      return data;
+    },
+    refetchOnWindowFocus: false,
+    enabled: false,
+  });
+
+  const handleTransaction = useCallback(async () => {
     // TODO: Add check if amount is > invested amount for withdraw and amount > wallet balance for deposit
     if (!address) return;
+
+    const baseChain = chains.find((chain) => chain.name === "Base");
+    if (!baseChain) return;
+
+    switchChain({ chainId: baseChain.id });
+
+    await fetchPythPrice();
+
+    const pythPrice = pythPriceData?.binary.data[0];
+
+    // TODO: Ideally add a toast here and show some message to the user to ensure proper communication
+    if (!pythPrice) return;
+
+    writeContract({
+      abi: pythContractAbi,
+      address: CONTRACT_ADDRESS.PYTH,
+      functionName: "setPricePyth",
+      args: [`0x${pythPrice}`],
+    });
 
     let writeContractParams: Parameters<typeof writeContract>[0] = {
       abi: contractAbi,

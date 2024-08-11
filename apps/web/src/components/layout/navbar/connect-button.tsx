@@ -10,6 +10,7 @@ import { useEffect } from "react";
 import { useLocalStorage } from "usehooks-ts";
 import { useAccount, useDisconnect, useSignMessage } from "wagmi";
 import { login } from "../../../utils/api/auth";
+import { truncateWalletAddress } from "../../../utils/common";
 import { LOCALSTORAGE_IS_AUTHENTICATED } from "../../../utils/constants";
 
 const ConnectButton = () => {
@@ -59,7 +60,9 @@ const ConnectButton = () => {
       variant={isConnected ? "ghost" : "default"}
     >
       {isConnected ? (
-        <div className="h-8 w-8 rounded-full bg-accent"></div>
+        <div className="rounded-md bg-accent text-contrast/80 h-full flex items-center justify-center px-3">
+          <p className="">{truncateWalletAddress(address as `0x{string}`)}</p>
+        </div>
       ) : (
         <>
           <span>Connect Wallet</span>

@@ -12,8 +12,26 @@ export const metadata = {
   icons: ["https://avatars.githubusercontent.com/u/37784886"],
 };
 
-export const chains = [base, modeTestnet, baseSepolia] as const;
+const tenderlyChain = {
+  id: 84535660,
+  rpcUrls: {
+    default: {
+      http: [
+        "https://virtual.base.rpc.tenderly.co/d424c845-fe2a-4dac-8cdc-8276e0dfed48",
+      ],
+    },
+  },
+  blockExplorers: {
+    default: {
+      name: "Tenderly",
+      url: "https://dashboard.tenderly.co/explorer/vnet/d424c845-fe2a-4dac-8cdc-8276e0dfed48",
+    },
+  },
+};
+
+export const chains = [base, modeTestnet, baseSepolia, tenderlyChain] as const;
 export const config = defaultWagmiConfig({
+  // @ts-ignore
   chains,
   projectId,
   metadata,
