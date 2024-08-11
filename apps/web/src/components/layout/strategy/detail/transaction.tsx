@@ -2,6 +2,7 @@
 
 import { useQuery } from "@tanstack/react-query";
 import { useWeb3Modal } from "@web3modal/wagmi/react";
+import { Strategy } from "@yieldhive/database";
 import LockIcon from "@yieldhive/ui/components/icons/lock";
 import { Button } from "@yieldhive/ui/components/ui/button";
 import { Card } from "@yieldhive/ui/components/ui/card";
@@ -10,25 +11,20 @@ import { cn } from "@yieldhive/ui/lib/utils";
 import { motion } from "framer-motion";
 import { ChevronRight } from "lucide-react";
 import { useCallback, useState } from "react";
-import { useAccount, useWriteContract } from "wagmi";
+import { useAccount, useSwitchChain, useWriteContract } from "wagmi";
 import { useSandboxStore } from "../../../../stores/useSandboxStore";
 import { useTransactionStore } from "../../../../stores/useTransactionStore";
 import { getContractABI } from "../../../../utils/api/contract";
-import { CONTRACT_ADDRESS } from "../../../../utils/constants";
 import { TRANSACTION_TABS } from "../../../../utils/types";
 
 interface Props {
-  strategyId: string;
+  strategy: NonNullable<Strategy>;
 }
 
-const StrategyDetailTransaction = ({ strategyId }: Props) => {
-  const {
-    isConnected,
-    address,
-    // chainId
-  } = useAccount();
+const StrategyDetailTransaction = ({ strategy }: Props) => {
+  const { isConnected, address } = useAccount();
   const { open } = useWeb3Modal();
-  // const { chains, switchChain } = useSwitchChain();
+  const { chains, switchChain } = useSwitchChain();
 
   // TODO: Handle read USDC balance
   // const {data, error} = useReadContract({
@@ -59,7 +55,7 @@ const StrategyDetailTransaction = ({ strategyId }: Props) => {
   const addTransaction = useTransactionStore((state) => state.addTransaction);
 
   const filteredTransactions = transactions
-    .filter((transaction) => transaction.strategyId === strategyId)
+    .filter((transaction) => transaction.strategyId === strategy.id)
     .filter((transaction) =>
       isSandboxModeActive
         ? transaction.isSandboxTransaction
@@ -78,9 +74,9 @@ const StrategyDetailTransaction = ({ strategyId }: Props) => {
   );
 
   const { data: contractAbi } = useQuery({
-    queryKey: ["strategy", "id"],
+    queryKey: ["strategy", strategy.id],
     queryFn: async () => {
-      const { data } = await getContractABI("strategy-abi");
+      const { data } = await getContractABI(strategy.slug);
       return data;
     },
     refetchOnWindowFocus: false,
@@ -90,10 +86,12 @@ const StrategyDetailTransaction = ({ strategyId }: Props) => {
     // TODO: Add check if amount is > invested amount for withdraw and amount > wallet balance for deposit
     if (!address) return;
 
-    // const baseChain = chains.find((chain) => chain.name === "Base");
-    // if (!baseChain) return;
+    const contractChain = chains.find((chain) =>
+      chain.name.toLowerCase().includes(strategy.chain.name.toLowerCase())
+    );
+    if (!contractChain) return;
 
-    // switchChain({ chainId: baseChain.id });
+    switchChain({ chainId: contractChain.id });
 
     if (isSandboxModeActive) {
       return addTransaction({
@@ -103,31 +101,39 @@ const StrategyDetailTransaction = ({ strategyId }: Props) => {
         status: "completed",
         timestamp: Date.now(),
         isSandboxTransaction: true,
-        strategyId,
+        strategyId: strategy.id,
       });
     }
 
     let writeContractParams: Parameters<typeof writeContract>[0] = {
       abi: contractAbi,
-      address: CONTRACT_ADDRESS.STRATEGY_ABI,
+      address: strategy.contract_address as `0x${string}`,
       functionName: "",
       args: [],
     };
 
     if (activeTab === TRANSACTION_TABS.DEPOSIT) {
       writeContractParams.functionName = "deposit";
-      writeContractParams.args = [amount, address];
+      writeContractParams.args = [amount * (10 ^ 8), address];
     } else {
       writeContractParams.functionName = "withdraw";
       writeContractParams.args = [
-        amount,
+        amount * (10 ^ 8),
         address,
-        CONTRACT_ADDRESS.STRATEGY_ABI,
+        strategy.contract_address,
       ];
     }
 
     writeContract(writeContractParams);
-  }, [contractAbi, address, activeTab, isSandboxModeActive, amount]);
+  }, [
+    contractAbi,
+    address,
+    activeTab,
+    isSandboxModeActive,
+    amount,
+    strategy.id,
+    strategy.contract_address,
+  ]);
 
   return (
     <motion.div

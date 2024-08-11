@@ -1,6 +1,7 @@
 import { defaultWagmiConfig } from "@web3modal/wagmi/react/config";
-import { base, baseSepolia, modeTestnet } from "wagmi/chains";
+import { http } from "viem";
 import { ENV } from "./env";
+import { baseVMainnet, optimismVMainnet } from "./tenderly";
 
 export const projectId = ENV.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID;
 
@@ -11,28 +12,18 @@ export const metadata = {
   icons: [],
 };
 
-const tenderlyChain = {
-  id: 84535660,
-  rpcUrls: {
-    default: {
-      http: [
-        "https://virtual.base.rpc.tenderly.co/d424c845-fe2a-4dac-8cdc-8276e0dfed48",
-      ],
-    },
-  },
-  blockExplorers: {
-    default: {
-      name: "Tenderly",
-      url: "https://dashboard.tenderly.co/explorer/vnet/d424c845-fe2a-4dac-8cdc-8276e0dfed48",
-    },
-  },
-};
-
-export const chains = [base, modeTestnet, baseSepolia, tenderlyChain] as const;
+export const chains = [baseVMainnet, optimismVMainnet] as const;
 export const config = defaultWagmiConfig({
-  // @ts-ignore
   chains,
   projectId,
   metadata,
   ssr: true,
+  transports: {
+    [baseVMainnet.id]: http(
+      "https://virtual.base.rpc.tenderly.co/d424c845-fe2a-4dac-8cdc-8276e0dfed48"
+    ),
+    [optimismVMainnet.id]: http(
+      "https://virtual.optimism.rpc.tenderly.co/30599e9d-e006-4b0e-b05f-eea92270a3d7"
+    ),
+  },
 });

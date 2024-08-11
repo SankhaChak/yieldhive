@@ -30,7 +30,7 @@ const StrategyDetail = (props: Props) => {
             />
           </div>
           <div className="col-span-1 lg:col-span-4">
-            <StrategyDetailTransaction strategyId={strategy.id} />
+            <StrategyDetailTransaction strategy={strategy} />
           </div>
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
