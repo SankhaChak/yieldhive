@@ -42,7 +42,7 @@ const StrategyDetail = (props: Props) => {
           </div>
         </div>
         <div className="pb-10">
-          <StrategyDetailTransactionHistory />
+          <StrategyDetailTransactionHistory strategyId={strategy.id} />
         </div>
       </div>
     </div>
