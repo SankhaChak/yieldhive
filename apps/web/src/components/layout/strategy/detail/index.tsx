@@ -26,10 +26,11 @@ const StrategyDetail = (props: Props) => {
             <StrategyDetailStats
               apy={strategy.apy}
               protocols={strategy.protocols}
+              tokens={strategy.tokens}
             />
           </div>
           <div className="col-span-1 lg:col-span-4">
-            <StrategyDetailTransaction />
+            <StrategyDetailTransaction strategyId={strategy.id} />
           </div>
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">

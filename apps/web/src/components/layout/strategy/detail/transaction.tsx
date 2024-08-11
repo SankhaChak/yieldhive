@@ -13,15 +13,15 @@ import { useCallback, useState } from "react";
 import { useAccount, useWriteContract } from "wagmi";
 import { useSandboxStore } from "../../../../stores/useSandboxStore";
 import { useTransactionStore } from "../../../../stores/useTransactionStore";
-import {
-  getContractABI,
-  getPricePyth,
-  getPythContractABI,
-} from "../../../../utils/api/contract";
+import { getContractABI } from "../../../../utils/api/contract";
 import { CONTRACT_ADDRESS } from "../../../../utils/constants";
 import { TRANSACTION_TABS } from "../../../../utils/types";
 
-const StrategyDetailTransaction = () => {
+interface Props {
+  strategyId: string;
+}
+
+const StrategyDetailTransaction = ({ strategyId }: Props) => {
   const {
     isConnected,
     address,
@@ -55,23 +55,27 @@ const StrategyDetailTransaction = () => {
   const [amount, setAmount] = useState<number>(0);
 
   const isSandboxModeActive = useSandboxStore((state) => state.isActive);
+  const transactions = useTransactionStore((state) => state.transactions);
   const addTransaction = useTransactionStore((state) => state.addTransaction);
 
-  // TODO: Replace it with strategy.priceFeedIds
-  const ids = [
-    "0xeaa020c61cc479712813461ce153894a96a6c00b21ed0cfc2798d1f9a9e9c94a",
-    "0x15ecddd26d49e1a8f1de9376ebebc03916ede873447c1255d2d5891b92ce5717",
-    "0x9db37f4d5654aad3e37e2e14ffd8d53265fb3026d1d8f91146539eebaa2ef45f",
-  ];
+  const filteredTransactions = transactions
+    .filter((transaction) => transaction.strategyId === strategyId)
+    .filter((transaction) =>
+      isSandboxModeActive
+        ? transaction.isSandboxTransaction
+        : !transaction.isSandboxTransaction
+    );
 
-  const { data: pythContractAbi } = useQuery({
-    queryKey: ["pyth", "price"],
-    queryFn: async () => {
-      const { data } = await getPythContractABI();
-      return data;
+  const totalInvestedAmount = filteredTransactions.reduce(
+    (acc, transaction) => {
+      if (transaction.action === "deposit") {
+        return acc + transaction.amount;
+      }
+
+      return acc - transaction.amount;
     },
-    refetchOnWindowFocus: false,
-  });
+    0
+  );
 
   const { data: contractAbi } = useQuery({
     queryKey: ["strategy", "id"],
@@ -82,18 +86,7 @@ const StrategyDetailTransaction = () => {
     refetchOnWindowFocus: false,
   });
 
-  const { data: pythPriceData, refetch: fetchPythPrice } = useQuery({
-    queryKey: ["pyth", ids],
-    queryFn: async ({ queryKey }) => {
-      const pythIds = queryKey[1];
-      const { data } = await getPricePyth(pythIds as string[]);
-      return data;
-    },
-    refetchOnWindowFocus: false,
-    enabled: false,
-  });
-
-  const handleTransaction = useCallback(async () => {
+  const handleTransaction = useCallback(() => {
     // TODO: Add check if amount is > invested amount for withdraw and amount > wallet balance for deposit
     if (!address) return;
 
@@ -110,24 +103,9 @@ const StrategyDetailTransaction = () => {
         status: "completed",
         timestamp: Date.now(),
         isSandboxTransaction: true,
-        // TODO: Replace with actual strategyId
-        strategyId: "1",
+        strategyId,
       });
     }
-
-    await fetchPythPrice();
-
-    const pythPrice = pythPriceData?.binary.data[0];
-
-    // TODO: Ideally add a toast here and show some message to the user to ensure proper communication
-    if (!pythPrice) return;
-
-    writeContract({
-      abi: pythContractAbi,
-      address: CONTRACT_ADDRESS.PYTH,
-      functionName: "setPricePyth",
-      args: [`0x${pythPrice}`],
-    });
 
     let writeContractParams: Parameters<typeof writeContract>[0] = {
       abi: contractAbi,
@@ -221,18 +199,23 @@ const StrategyDetailTransaction = () => {
             </div>
             <div className="p-4 flex-1 flex flex-col justify-between">
               <div>
-                {/* <h2 className="font-medium">Available Balance</h2>
+                <h2 className="font-medium">Invested Amount</h2>
                 <div className="flex items-end gap-1">
-                  <h3 className="text-lg font-semibold">0.00</h3>
-                  <button className="text-xs font-bold text-accent relative -top-1">
+                  <h3 className="text-lg font-semibold">
+                    {totalInvestedAmount.toLocaleString(undefined, {
+                      minimumFractionDigits: 2,
+                      maximumFractionDigits: 2,
+                    })}
+                  </h3>
+                  {/* <button className="text-xs font-bold text-accent relative -top-1">
                     [Max]
-                  </button>
-                </div> */}
-                <h2 className="font-medium">
+                  </button> */}
+                </div>
+                {/* <h2 className="font-medium">
                   {activeTab === TRANSACTION_TABS.DEPOSIT
                     ? "Deposit USDC"
                     : "Withdraw USDC"}
-                </h2>
+                </h2> */}
                 {/* <div className="flex items-end gap-1">
                   <h3 className="text-lg font-semibold">0.00</h3>
                   <button className="text-xs font-bold text-accent relative -top-1">

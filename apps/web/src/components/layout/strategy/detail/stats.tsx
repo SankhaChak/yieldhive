@@ -7,10 +7,11 @@ import { motion } from "framer-motion";
 interface Props {
   apy: string;
   protocols: NonNullable<Strategy>["protocols"];
+  tokens: NonNullable<Strategy>["tokens"];
 }
 
 const StrategyDetailStats = (props: Props) => {
-  const { apy, protocols = [] } = props;
+  const { apy, protocols = [], tokens = [] } = props;
 
   return (
     <motion.div
@@ -37,7 +38,17 @@ const StrategyDetailStats = (props: Props) => {
             {/* <p className="font-semibold opacity-60">{multiplier}x boosted</p> */}
           </div>
         </div>
-        <div className="flex items-center justify-end">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center -space-x-6">
+            {tokens.map((token) => (
+              <img
+                key={token.id}
+                src={token.logo_url}
+                alt={token.name}
+                className="w-12 h-12 bg-secondary rounded-full border-2 border-contrast"
+              />
+            ))}
+          </div>
           <div className="flex items-center -space-x-6">
             {protocols.map((protocol) => (
               <img
@@ -47,14 +58,6 @@ const StrategyDetailStats = (props: Props) => {
                 className="w-12 h-12 bg-secondary rounded-full border-2 border-contrast"
               />
             ))}
-            {/* {Array(2)
-              .fill("")
-              .map((_, idx) => (
-                <div
-                  key={idx}
-                  className="w-12 h-12 bg-secondary rounded-full border-2 border-contrast"
-                />
-              ))} */}
           </div>
           {/* <p className="text-3xl font-bold">$20,00</p> */}
         </div>

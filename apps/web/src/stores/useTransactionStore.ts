@@ -39,8 +39,8 @@ export const useTransactionStore = create<State>()(
         set((state) => {
           const amountToBeAdded =
             transaction.action === "deposit"
-              ? transaction.amount
-              : -transaction.amount;
+              ? -transaction.amount
+              : transaction.amount;
 
           if (transaction.isSandboxTransaction) {
             state.sandboxBalance += amountToBeAdded;

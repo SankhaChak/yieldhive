@@ -34,23 +34,22 @@ const StrategyCard = ({ strategy }: Props) => {
     >
       <div className="md:col-span-3">
         <h4 className="font-semibold">{strategy.name}</h4>
-        <p className="text-sm mt-4 font-medium text-primary/80 group-hover:text-contrast/80 transition-colors duration-300">
+        <p className="text-[15px] mt-4 font-medium text-primary/80 group-hover:text-contrast/80 transition-colors duration-300">
           {strategy.description}
         </p>
 
-        <div className="mt-12 flex -space-x-2">
-          {strategy.tokens.map((token) => (
-            <img
-              key={token.id}
-              src={token.logo_url}
-              alt={token.name}
-              className="h-8 w-8 rounded-full bg-gray-900 ring ring-contrast group-hover:ring-accent transition-all duration-300"
-            />
-          ))}
-          {/* <span className="h-8 w-8 rounded-full bg-gray-900 ring ring-contrast group-hover:ring-accent transition-all duration-300"></span>
-          <span className="h-8 w-8 rounded-full bg-gray-900 ring ring-contrast group-hover:ring-accent transition-all duration-300"></span>
-          <span className="h-8 w-8 rounded-full bg-gray-900 ring ring-contrast group-hover:ring-accent transition-all duration-300"></span>
-          <span className="h-8 w-8 rounded-full bg-gray-900 ring ring-contrast group-hover:ring-accent transition-all duration-300"></span> */}
+        <div className="flex items-end gap-4">
+          <div className="mt-12 flex -space-x-2">
+            {strategy.tokens.map((token) => (
+              <img
+                key={token.id}
+                src={token.logo_url}
+                alt={token.name}
+                className="h-8 w-8 rounded-full bg-gray-900 ring ring-contrast group-hover:ring-accent transition-all duration-300"
+              />
+            ))}
+          </div>
+          <h3 className="text-lg font-semibold">{strategy.apy}%</h3>
         </div>
       </div>
       <div className="w-full col-span-2 relative hidden md:block">
