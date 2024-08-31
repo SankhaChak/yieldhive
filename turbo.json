@@ -2,34 +2,34 @@
   "$schema": "https://turbo.build/schema.json",
   "tasks": {
     "build": {
-      "dependsOn": ["^build", "^db:generate", "^ui:build"],
+      "dependsOn": ["^build", "^@yieldhive/database#generate"],
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
       "outputs": ["dist/**", ".next/**", "!.next/cache/**"]
     },
     "lint": {},
     "type-check": {},
     "dev": {
-      "dependsOn": ["^ui:build", "^db:generate"],
+      "dependsOn": ["^@yieldhive/ui#build", "^@yieldhive/database#generate"],
       "cache": false,
       "persistent": true
     },
     "clean": {
       "cache": false
     },
-    "ui:build": {
+    "@yieldhive/ui#build": {
       "cache": false
     },
-    "db:generate": {
+    "@yieldhive/database#generate": {
       "cache": false
     },
-    "db:push": {
+    "@yieldhive/database:push": {
       "cache": false
     },
-    "db:migrate": {
+    "@yieldhive/database:migrate": {
       "cache": false
     },
     "web#build": {
-      "dependsOn": ["^ui:build", "^db:generate"],
+      "dependsOn": ["^@yieldhive/ui#build", "^@yieldhive/database#generate"],
       "env": [
         "NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID",
         "NEXT_PUBLIC_BACKEND_ENDPOINT",
@@ -38,6 +38,7 @@
       ]
     },
     "web#dev": {
+      "dependsOn": ["^@yieldhive/ui#build"],
       "env": [
         "NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID",
         "NEXT_PUBLIC_BACKEND_ENDPOINT",
