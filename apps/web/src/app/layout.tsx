@@ -1,7 +1,6 @@
 import "@yieldhive/ui/styles.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import Modal from "../components/layout/modal";
 import Navbar from "../components/layout/navbar";
 import SandboxModeNotification from "../components/layout/sandbox/notification";
 import SandboxModeSwitcher from "../components/layout/sandbox/switcher";
@@ -31,7 +30,7 @@ export default function RootLayout({
               <Navbar />
               {children}
             </main>
-            <Modal />
+            {/* <Modal /> */}
             <SandboxModeNotification />
             <SandboxModeSwitcher />
           </NprogressProvider>

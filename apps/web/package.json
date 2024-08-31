@@ -10,8 +10,6 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@alchemy/aa-alchemy": "^3.19.0",
-    "@alchemy/aa-core": "^3.19.0",
     "@headlessui/react": "^2.1.2",
     "@tanstack/react-query": "^5.51.21",
     "@web3modal/wagmi": "^5.0.11",
@@ -38,10 +36,10 @@
     "@types/node": "^20.11.24",
     "@types/react": "^18.2.61",
     "@types/react-dom": "^18.2.19",
+    "@yieldhive/database": "workspace:*",
     "@yieldhive/eslint-config": "workspace:*",
     "@yieldhive/tailwind-config": "workspace:*",
     "@yieldhive/typescript-config": "workspace:*",
-    "@yieldhive/database": "workspace:*",
     "autoprefixer": "^10.4.18",
     "encoding": "^0.1.13",
     "pino-pretty": "^11.2.2",

@@ -1,15 +1,10 @@
 "use client";
 
-import { lazy, useEffect } from "react";
+import { useEffect } from "react";
 import useBlockBodyScroll from "../../../hooks/useBlockBodyScroll";
 import { useModalStore } from "../../../stores/useModalStore";
 import { ModalName } from "../../../utils/types";
 import ModalWrapper from "./wrapper";
-
-const EmbeddedAccountsAuthModal = lazy(
-  () => import("./embedded-accounts-auth")
-);
-const EmbeddedAccountProfile = lazy(() => import("./embedded-account-profile"));
 
 const Modal = () => {
   const modalProps = useModalStore((state) => state.modalProps);
@@ -27,8 +22,8 @@ const Modal = () => {
   useBlockBodyScroll(showModal);
 
   const modalMapping = {
-    [ModalName.EMBEDDED_ACCOUNTS_AUTH]: EmbeddedAccountsAuthModal,
-    [ModalName.EMBEDDED_ACCOUNTS_PROFILE]: EmbeddedAccountProfile,
+    // [ModalName.EMBEDDED_ACCOUNTS_AUTH]: EmbeddedAccountsAuthModal,
+    // [ModalName.EMBEDDED_ACCOUNTS_PROFILE]: EmbeddedAccountProfile,
   };
 
   const ModalComponent = modalMapping[modalName as ModalName];
