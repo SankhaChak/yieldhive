@@ -3,7 +3,6 @@
 import { useEffect } from "react";
 import useBlockBodyScroll from "../../../hooks/useBlockBodyScroll";
 import { useModalStore } from "../../../stores/useModalStore";
-import { ModalName } from "../../../utils/types";
 import ModalWrapper from "./wrapper";
 
 const Modal = () => {
@@ -26,7 +25,7 @@ const Modal = () => {
     // [ModalName.EMBEDDED_ACCOUNTS_PROFILE]: EmbeddedAccountProfile,
   };
 
-  const ModalComponent = modalMapping[modalName as ModalName];
+  // const ModalComponent = modalMapping[modalName as ModalName];
 
   useEffect(() => {
     if (!showModal) {
@@ -39,7 +38,7 @@ const Modal = () => {
 
   return (
     <ModalWrapper open={showModal} onOpenChange={setShowModal}>
-      {ModalComponent && <ModalComponent {...modalProps} />}
+      {/* {ModalComponent && <ModalComponent {...modalProps} />} */}
     </ModalWrapper>
   );
 };
