@@ -48,7 +48,7 @@ const StrategyDetailStats = (props: Props) => {
           <div className="flex items-center justify-between">
             <div className="flex items-center -space-x-6">
               {tokens.map((token) => (
-                <Tooltip delayDuration={100}>
+                <Tooltip key={token.id} delayDuration={100}>
                   <TooltipTrigger>
                     <img
                       key={token.id}
@@ -65,7 +65,7 @@ const StrategyDetailStats = (props: Props) => {
             </div>
             <div className="flex items-center -space-x-6">
               {protocols.map((protocol) => (
-                <Tooltip delayDuration={100}>
+                <Tooltip key={protocol.id} delayDuration={100}>
                   <TooltipTrigger>
                     <img
                       key={protocol.id}
