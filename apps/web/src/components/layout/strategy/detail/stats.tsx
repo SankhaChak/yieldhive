@@ -2,6 +2,12 @@
 
 import { Strategy } from "@yieldhive/database";
 import { Card } from "@yieldhive/ui/components/ui/card";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@yieldhive/ui/components/ui/tooltip";
 import { motion } from "framer-motion";
 
 interface Props {
@@ -38,29 +44,45 @@ const StrategyDetailStats = (props: Props) => {
             {/* <p className="font-semibold opacity-60">{multiplier}x boosted</p> */}
           </div>
         </div>
-        <div className="flex items-center justify-between">
-          <div className="flex items-center -space-x-6">
-            {tokens.map((token) => (
-              <img
-                key={token.id}
-                src={token.logo_url}
-                alt={token.name}
-                className="w-12 h-12 bg-secondary rounded-full border-2 border-contrast"
-              />
-            ))}
+        <TooltipProvider>
+          <div className="flex items-center justify-between">
+            <div className="flex items-center -space-x-6">
+              {tokens.map((token) => (
+                <Tooltip delayDuration={100}>
+                  <TooltipTrigger>
+                    <img
+                      key={token.id}
+                      src={token.logo_url}
+                      alt={token.name}
+                      className="w-12 h-12 bg-secondary rounded-full border-2 border-contrast"
+                    />
+                  </TooltipTrigger>
+                  <TooltipContent className="ml-10">
+                    <p>{token.name}</p>
+                  </TooltipContent>
+                </Tooltip>
+              ))}
+            </div>
+            <div className="flex items-center -space-x-6">
+              {protocols.map((protocol) => (
+                <Tooltip delayDuration={100}>
+                  <TooltipTrigger>
+                    <img
+                      key={protocol.id}
+                      src={protocol.image_url}
+                      alt={protocol.name}
+                      className="w-12 h-12 bg-secondary rounded-full border-2 border-contrast"
+                    />
+                  </TooltipTrigger>
+                  <TooltipContent className="ml-10">
+                    <p>{protocol.name}</p>
+                  </TooltipContent>
+                </Tooltip>
+              ))}
+            </div>
+            {/* <p className="text-3xl font-bold">$20,00</p> */}
           </div>
-          <div className="flex items-center -space-x-6">
-            {protocols.map((protocol) => (
-              <img
-                key={protocol.id}
-                src={protocol.image_url}
-                alt={protocol.name}
-                className="w-12 h-12 bg-secondary rounded-full border-2 border-contrast"
-              />
-            ))}
-          </div>
-          {/* <p className="text-3xl font-bold">$20,00</p> */}
-        </div>
+        </TooltipProvider>
       </Card>
     </motion.div>
   );
