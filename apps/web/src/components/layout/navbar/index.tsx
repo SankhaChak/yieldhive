@@ -14,12 +14,14 @@ const Navbar = () => {
           className="mx-auto flex container items-center justify-between p-6 lg:!px-8 !py-4"
         >
           <div className="flex-1 hidden md:block justify-start items-center">
-            <div className="flex items-center gap-8 [&:hover>a]:opacity-50 [&>a:hover]:opacity-100 [&:hover_button]:opacity-50 [&_button:hover]:!opacity-100">
-              {navItems.map((item) => (
-                <NavItem key={item.href} item={item}>
-                  {item.children}
-                </NavItem>
-              ))}
+            <div className="flex items-center">
+              <div className="flex items-center gap-8 [&:hover>a]:opacity-50 [&>a:hover]:opacity-100 [&:hover_button]:opacity-50 [&_button:hover]:!opacity-100">
+                {navItems.map((item) => (
+                  <NavItem key={item.href} item={item}>
+                    {item.children}
+                  </NavItem>
+                ))}
+              </div>
             </div>
           </div>
           <div className="flex items-center justify-center px-4">
