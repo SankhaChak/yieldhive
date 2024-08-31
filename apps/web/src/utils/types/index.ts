@@ -31,6 +31,8 @@ export interface Strategy {
 
 export type ChainId = (typeof chains)[number]["id"];
 
-export enum ModalName {}
+export enum ModalName {
+  SANDBOX_INFO = "SANDBOX INFO",
+}
 // EMBEDDED_ACCOUNTS_AUTH = "EMBEDDED ACCOUNTS AUTH",
 // EMBEDDED_ACCOUNTS_PROFILE = "EMBEDDED ACCOUNTS PROFILE",

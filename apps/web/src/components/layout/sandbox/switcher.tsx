@@ -4,12 +4,24 @@ import { Button } from "@yieldhive/ui/components/ui/button";
 import Logo from "@yieldhive/ui/components/ui/logo";
 import { motion } from "framer-motion";
 import { useState } from "react";
+import { useModalStore } from "../../../stores/useModalStore";
 import { useSandboxStore } from "../../../stores/useSandboxStore";
+import { ModalName } from "../../../utils/types";
 
 const SandboxModeSwitcher = () => {
   const [isHovering, setIsHovering] = useState(false);
+  const handleOpenModal = useModalStore((state) => state.handleOpenModal);
   const isActive = useSandboxStore((state) => state.isActive);
   const setIsActive = useSandboxStore((state) => state.setIsActive);
+
+  const handleEnableSandboxMode = () => {
+    if (isActive) {
+      setIsActive(false);
+      return;
+    }
+
+    handleOpenModal(ModalName.SANDBOX_INFO);
+  };
 
   return (
     <motion.div
@@ -30,7 +42,7 @@ const SandboxModeSwitcher = () => {
         variant="outline"
         onMouseEnter={() => setIsHovering(true)}
         onMouseLeave={() => setIsHovering(false)}
-        onClick={() => setIsActive((state) => !state)}
+        onClick={handleEnableSandboxMode}
       >
         <div className="absolute inset-0 animate-orbit">
           <svg className="w-full h-full" viewBox="0 0 100 100">

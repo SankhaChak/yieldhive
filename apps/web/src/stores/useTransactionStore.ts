@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { devtools } from "zustand/middleware";
 import { immer } from "zustand/middleware/immer";
+import { SANDBOX_INITIAL_BALANCE } from "../utils/constants/sandbox";
 
 interface Transaction {
   action: "deposit" | "withdraw";
@@ -24,7 +25,7 @@ interface State {
 export const useTransactionStore = create<State>()(
   devtools(
     immer((set) => ({
-      sandboxBalance: 100000,
+      sandboxBalance: SANDBOX_INITIAL_BALANCE,
       setSandboxBalance: (value) =>
         set((state) => {
           state.sandboxBalance = value;

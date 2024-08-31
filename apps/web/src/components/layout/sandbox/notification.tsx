@@ -3,6 +3,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useSandboxStore } from "../../../stores/useSandboxStore";
 import { useTransactionStore } from "../../../stores/useTransactionStore";
+import { getFormattedBalance } from "../../../utils/sandbox";
 
 const SandboxModeNotification = () => {
   const isActive = useSandboxStore((state) => state.isActive);
@@ -35,14 +36,7 @@ const SandboxModeNotification = () => {
           <div className="rounded-full bg-accent flex items-center gap-2 px-1 py-1">
             <p className="py-2 pl-2 text-contrast">Sandbox Mode is active</p>
             <div className="py-2 px-3 bg-[#B4AFED] text-primary/80 font-semibold rounded-full">
-              <p>
-                Bal:{" "}
-                {sandboxBalance.toLocaleString(undefined, {
-                  minimumFractionDigits: 2,
-                  maximumFractionDigits: 2,
-                })}{" "}
-                USDC
-              </p>
+              <p>Bal: {getFormattedBalance(sandboxBalance)} USDC</p>
             </div>
           </div>
         </motion.div>

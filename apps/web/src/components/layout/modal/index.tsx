@@ -3,13 +3,15 @@
 import { useEffect } from "react";
 import useBlockBodyScroll from "../../../hooks/useBlockBodyScroll";
 import { useModalStore } from "../../../stores/useModalStore";
+import { ModalName } from "../../../utils/types";
+import SandboxInfoModal from "./sandbox";
 import ModalWrapper from "./wrapper";
 
 const Modal = () => {
-  // const modalProps = useModalStore((state) => state.modalProps);
+  const modalProps = useModalStore((state) => state.modalProps);
   const showModal = useModalStore((state) => state.showModal);
   const setShowModal = useModalStore((state) => state.setShowModal);
-  // const modalName = useModalStore((state) => state.modalName);
+  const modalName = useModalStore((state) => state.modalName);
   const setModalName = useModalStore((state) => state.setModalName);
   const setModalProps = useModalStore((state) => state.setModalProps);
 
@@ -20,12 +22,11 @@ const Modal = () => {
 
   useBlockBodyScroll(showModal);
 
-  // const modalMapping = {
-  // [ModalName.EMBEDDED_ACCOUNTS_AUTH]: EmbeddedAccountsAuthModal,
-  // [ModalName.EMBEDDED_ACCOUNTS_PROFILE]: EmbeddedAccountProfile,
-  // };
+  const modalMapping = {
+    [ModalName.SANDBOX_INFO]: SandboxInfoModal,
+  };
 
-  // const ModalComponent = modalMapping[modalName as ModalName];
+  const ModalComponent = modalMapping[modalName as ModalName];
 
   useEffect(() => {
     if (!showModal) {
@@ -38,7 +39,7 @@ const Modal = () => {
 
   return (
     <ModalWrapper open={showModal} onOpenChange={setShowModal}>
-      {/* {ModalComponent && <ModalComponent {...modalProps} />} */}
+      {ModalComponent && <ModalComponent {...modalProps} />}
     </ModalWrapper>
   );
 };
