@@ -19,9 +19,9 @@ const HeroProductDemo = () => {
         ease: [0.4, 0.0, 0.2, 1],
         delay: 0.8,
       }}
-      className="container mx-auto"
+      className="container mx-auto pb-12"
     >
-      <div className="relative rounded-lg mt-12 w-full md:!w-10/12 mx-auto overflow-hidden pb-12">
+      <div className="relative rounded-lg mt-12 w-full md:!w-10/12 mx-auto overflow-hidden">
         {/* <BorderBeam colorFrom="#6E64DD" colorTo="#C3C0F2" borderWidth={3} /> */}
         <Image
           src="https://hackathons.youprotab.com/hackathons/superhack-2024/hero.png"
