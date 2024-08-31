@@ -6,10 +6,10 @@ import { useModalStore } from "../../../stores/useModalStore";
 import ModalWrapper from "./wrapper";
 
 const Modal = () => {
-  const modalProps = useModalStore((state) => state.modalProps);
+  // const modalProps = useModalStore((state) => state.modalProps);
   const showModal = useModalStore((state) => state.showModal);
   const setShowModal = useModalStore((state) => state.setShowModal);
-  const modalName = useModalStore((state) => state.modalName);
+  // const modalName = useModalStore((state) => state.modalName);
   const setModalName = useModalStore((state) => state.setModalName);
   const setModalProps = useModalStore((state) => state.setModalProps);
 
@@ -20,10 +20,10 @@ const Modal = () => {
 
   useBlockBodyScroll(showModal);
 
-  const modalMapping = {
-    // [ModalName.EMBEDDED_ACCOUNTS_AUTH]: EmbeddedAccountsAuthModal,
-    // [ModalName.EMBEDDED_ACCOUNTS_PROFILE]: EmbeddedAccountProfile,
-  };
+  // const modalMapping = {
+  // [ModalName.EMBEDDED_ACCOUNTS_AUTH]: EmbeddedAccountsAuthModal,
+  // [ModalName.EMBEDDED_ACCOUNTS_PROFILE]: EmbeddedAccountProfile,
+  // };
 
   // const ModalComponent = modalMapping[modalName as ModalName];
 
