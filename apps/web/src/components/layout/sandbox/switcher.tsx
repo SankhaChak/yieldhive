@@ -26,7 +26,7 @@ const SandboxModeSwitcher = () => {
       }}
     >
       <Button
-        className="fixed right-10 bottom-10 p-0 rounded-full h-24 w-24 flex items-center justify-center group transition-all duration-300 scale-100 hover:scale-110"
+        className="fixed right-10 bottom-10 p-0 rounded-full h-24 w-24 flex items-center justify-center group transition-all duration-300 scale-100 hover:scale-110 z-20"
         variant="outline"
         onMouseEnter={() => setIsHovering(true)}
         onMouseLeave={() => setIsHovering(false)}
