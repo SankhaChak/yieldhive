@@ -16,9 +16,9 @@ const BrandMarquee = () => {
     <div className="pb-10">
       <div className="relative flex w-full flex-col items-center justify-center overflow-hidden container mx-auto">
         <Marquee pauseOnHover loop={0} speed={100}>
-          {icons.map((icon, index) => (
+          {icons.map((icon) => (
             <div
-              key={index}
+              key={icon.key}
               className="px-4 filter grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300"
             >
               {icon}

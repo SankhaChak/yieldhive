@@ -18,26 +18,26 @@ const StrategyDetail = (props: Props) => {
     <div className="container mx-auto relative pt-24 lg:pt-28 text-primary">
       <StrategyDetailTitle title={strategy.name} />
       <div className="space-y-6 mt-4">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-          <div className="col-span-1 lg:col-span-5">
+        <div className="!grid !grid-cols-1 lg:!grid-cols-12 gap-6">
+          <div className="!col-span-1 lg:!col-span-5">
             <StrategyDetailDescription description={strategy.description} />
           </div>
-          <div className="col-span-1 lg:col-span-3">
+          <div className="!col-span-1 lg:!col-span-3">
             <StrategyDetailStats
               apy={strategy.apy}
               protocols={strategy.protocols}
               tokens={strategy.tokens}
             />
           </div>
-          <div className="col-span-1 lg:col-span-4">
+          <div className="!col-span-1 lg:!col-span-4">
             <StrategyDetailTransaction strategy={strategy} />
           </div>
         </div>
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-          <div className="col-span-1 lg:col-span-7">
+        <div className="!grid !grid-cols-1 lg:!grid-cols-12 gap-6">
+          <div className="!col-span-1 lg:!col-span-7">
             <StrategyDetailBTS bts={strategy.steps} chain={strategy.chain} />
           </div>
-          <div className="col-span-1 lg:col-span-5">
+          <div className="!col-span-1 lg:!col-span-5">
             <StrategyDetailRisks risks={strategy.risks} />
           </div>
         </div>
