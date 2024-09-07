@@ -6,10 +6,10 @@ import Marquee from "react-fast-marquee";
 
 const BrandMarquee = () => {
   const icons = [
-    <TenderlyIcon className="w-48" />,
-    <ModeIcon className="w-28" />,
-    <SuperformIcon className="w-8 h-8 mx-4" />,
-    <PythIcon className="w-28" />,
+    <TenderlyIcon key="tenderly" className="w-48" />,
+    <ModeIcon key="mode" className="w-28" />,
+    <SuperformIcon key="superform" className="w-8 h-8 mx-4" />,
+    <PythIcon key="pyth" className="w-28" />,
   ];
 
   return (
