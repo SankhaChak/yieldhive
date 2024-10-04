@@ -274,7 +274,7 @@ const StrategyDetailTransaction = ({ strategy }: Props) => {
             </div>
             <div className="p-4 flex-1 flex flex-col justify-between">
               <div>
-                <h2 className="font-medium">Invested Amount</h2>
+                <h2 className="font-medium">Total Shares</h2>
                 <div className="flex items-end gap-1">
                   <h3 className="text-lg font-semibold" key={investedAmount}>
                     {Number(investedAmount ?? 0) / 10 ** 18} WETH
