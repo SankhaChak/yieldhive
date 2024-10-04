@@ -118,8 +118,12 @@ const StrategyDetailTransaction = ({ strategy }: Props) => {
       abi: approveContractAbi,
       address: "0x4200000000000000000000000000000000000006",
       functionName: "approve",
-      args: [strategy.contract_address as `0x${string}`, amount * (10 ^ 18)],
+      args: [strategy.contract_address as `0x${string}`, amount * 10 ** 18],
     };
+    console.log(
+      "🚀 ~ file: transaction.tsx:123 ~ handleTransaction ~ approveContractParams:",
+      approveContractParams
+    );
 
     try {
       writeContract(approveContractParams);
@@ -143,7 +147,7 @@ const StrategyDetailTransaction = ({ strategy }: Props) => {
     } else {
       writeContractParams.functionName = "withdraw";
       writeContractParams.args = [
-        amount * (10 ^ 18),
+        amount * 10 ** 18,
         address,
         strategy.contract_address,
       ];
