@@ -10,6 +10,14 @@ const BrandMarquee = () => {
     <ModeIcon key="mode" className="w-28" />,
     <SuperformIcon key="superform" className="w-8 h-8 mx-4" />,
     <PythIcon key="pyth" className="w-28" />,
+    <TenderlyIcon key="tenderly-1" className="w-48" />,
+    <ModeIcon key="mode-1" className="w-28" />,
+    <SuperformIcon key="superform-1" className="w-8 h-8 mx-4" />,
+    <PythIcon key="pyth-1" className="w-28" />,
+    <TenderlyIcon key="tenderly-2" className="w-48" />,
+    <ModeIcon key="mode-2" className="w-28" />,
+    <SuperformIcon key="superform-2" className="w-8 h-8 mx-4" />,
+    <PythIcon key="pyth-2" className="w-28" />,
   ];
 
   return (
