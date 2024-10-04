@@ -30,15 +30,15 @@ async function main() {
   //   },
   // });
 
-  const modeChain = await prisma.chain.create({
-    data: {
-      name: "Mode",
-      network: "Mainnet",
-      pyth_contract_abi_url:
-        "https://hackathons.youprotab.com/hackathons/superhack-2024/contracts/mode-pyth.json",
-      pyth_contract_address: "0x3a3f8f3dabf4f0c9e6f6b7d5d6c3b5f3f2f6c5b3",
-    },
-  });
+  // const modeChain = await prisma.chain.create({
+  //   data: {
+  //     name: "Mode",
+  //     network: "Mainnet",
+  //     pyth_contract_abi_url:
+  //       "https://hackathons.youprotab.com/hackathons/superhack-2024/contracts/mode-pyth.json",
+  //     pyth_contract_address: "0x3a3f8f3dabf4f0c9e6f6b7d5d6c3b5f3f2f6c5b3",
+  //   },
+  // });
 
   // const aaveProtocol = await prisma.protocol.create({
   //   data: {
@@ -312,60 +312,132 @@ async function main() {
   //   ],
   // });
 
-  const bridgeProtocol = await prisma.protocol.create({
+  const WETHToken = await prisma.token.create({
     data: {
-      name: "Bridge",
-      image_url:
-        "https://hackathons.youprotab.com/hackathons/superhack-2024/assets/bridge.svg",
+      name: "WETH",
+      logo_url:
+        "https://hackathons.youprotab.com/hackathons/superhack-2024/assets/weth.webp",
     },
   });
 
-  const transferProtocol = await prisma.protocol.create({
+  const ezETHToken = await prisma.token.create({
     data: {
-      name: "Transfer",
-      image_url:
-        "https://hackathons.youprotab.com/hackathons/superhack-2024/assets/transfer.svg",
+      name: "ezETH",
+      logo_url:
+        "https://hackathons.youprotab.com/hackathons/superhack-2024/assets/ezeth.webp",
     },
   });
 
-  const modeLooptimismStrategy = await prisma.strategy.create({
+  const wrsETHToken = await prisma.token.create({
     data: {
-      name: "Mode Looptimism",
+      name: "wrsETH",
+      logo_url:
+        "https://hackathons.youprotab.com/hackathons/superhack-2024/assets/rseth.png",
+    },
+  });
+
+  // const bridgeProtocol = await prisma.protocol.create({
+  //   data: {
+  //     name: "Bridge",
+  //     image_url:
+  //       "https://hackathons.youprotab.com/hackathons/superhack-2024/assets/bridge.svg",
+  //   },
+  // });
+
+  // const transferProtocol = await prisma.protocol.create({
+  //   data: {
+  //     name: "Transfer",
+  //     image_url:
+  //       "https://hackathons.youprotab.com/hackathons/superhack-2024/assets/transfer.svg",
+  //   },
+  // });
+
+  const kimProtocol = await prisma.protocol.create({
+    data: {
+      name: "KIM",
+      image_url:
+        "https://hackathons.youprotab.com/hackathons/superhack-2024/assets/kim.svg",
+    },
+  });
+
+  // const modeLooptimismStrategy = await prisma.strategy.create({
+  //   data: {
+  //     name: "Mode Looptimism",
+  //     description:
+  //       "Deposit your USDC into Looptimism from Mode to leverage automated yield optimization across multiple DeFi protocols. This smart contract strategy supplies your USDC to Optimism where it invests in Aave, borrows WBTC against it, then swaps the WBTC back to USDC via Uniswap, repeating this process to increase leverage. It uses Pyth for real-time price feeds to maintain a safe loan-to-value ratio. Your stake is represented by ERC4626 standard shares, allowing for easy deposits and withdrawals. The contract owner can periodically harvest gains to realize yields. This approach aims to maximize your USDC returns by capitalizing on lending-borrowing differentials and potential market inefficiencies, all while managing associated risks through automated processes.",
+  //     apy: "8.73",
+  //     multiplier: "1.02",
+  //     slug: "mode-looptimism",
+  //     contract_address: "0x862dad7c52edbd3a8d9c45307e0e1e87fc9786b2",
+  //     abi_url:
+  //       "https://hackathons.youprotab.com/hackathons/superhack-2024/contracts/looptimism.json",
+  //     price_feeds: [
+  //       "0xeaa020c61cc479712813461ce153894a96a6c00b21ed0cfc2798d1f9a9e9c94a",
+  //       "0xc9d8b075a5c69303365ae23633d4e085199bf5c520a3b90fed1322a0342ffc33",
+  //     ],
+  //     protocols: {
+  //       connect: [
+  //         {
+  //           id: "clzpd94r00002rjnkk0qebb6u",
+  //         },
+  //         {
+  //           id: "clzpd95520003rjnkpu8i8wd7",
+  //         },
+  //       ],
+  //     },
+  //     tokens: {
+  //       connect: [
+  //         {
+  //           id: "clzpd95jk0005rjnkhyd8dxgu",
+  //         },
+  //         {
+  //           id: "clzpd96c00008rjnkx07u5sl2",
+  //         },
+  //       ],
+  //     },
+  //     chain: {
+  //       connect: {
+  //         id: modeChain.id,
+  //       },
+  //     },
+  //   },
+  // });
+
+  const liquidModeStrategy = await prisma.strategy.create({
+    data: {
+      name: "LiquidMode",
       description:
-        "Deposit your USDC into Looptimism from Mode to leverage automated yield optimization across multiple DeFi protocols. This smart contract strategy supplies your USDC to Optimism where it invests in Aave, borrows WBTC against it, then swaps the WBTC back to USDC via Uniswap, repeating this process to increase leverage. It uses Pyth for real-time price feeds to maintain a safe loan-to-value ratio. Your stake is represented by ERC4626 standard shares, allowing for easy deposits and withdrawals. The contract owner can periodically harvest gains to realize yields. This approach aims to maximize your USDC returns by capitalizing on lending-borrowing differentials and potential market inefficiencies, all while managing associated risks through automated processes.",
-      apy: "8.73",
+        "Supercharge your WETH with LiquidMode! We convert your WETH into wrsETH and ezETH, investing in KIM Exchange's liquidity pool on Mode. Enjoy optimized yields from Liquid Staking Tokens, with smart rebalancing and automatic reward reinvestment. Easy deposits and withdrawals via ERC4626 shares. Maximize your returns while we handle the complexity!",
+      apy: "219.79",
       multiplier: "1.02",
-      slug: "mode-looptimism",
+      slug: "liquid-mode",
       contract_address: "0x862dad7c52edbd3a8d9c45307e0e1e87fc9786b2",
       abi_url:
-        "https://hackathons.youprotab.com/hackathons/superhack-2024/contracts/looptimism.json",
-      price_feeds: [
-        "0xeaa020c61cc479712813461ce153894a96a6c00b21ed0cfc2798d1f9a9e9c94a",
-        "0xc9d8b075a5c69303365ae23633d4e085199bf5c520a3b90fed1322a0342ffc33",
-      ],
+        "https://hackathons.youprotab.com/hackathons/superhack-2024/contracts/liquidmode.json",
+      price_feeds: [],
       protocols: {
         connect: [
           {
-            id: "clzpd94r00002rjnkk0qebb6u",
-          },
-          {
-            id: "clzpd95520003rjnkpu8i8wd7",
+            id: kimProtocol.id,
           },
         ],
       },
       tokens: {
         connect: [
           {
-            id: "clzpd95jk0005rjnkhyd8dxgu",
+            id: WETHToken.id,
           },
           {
-            id: "clzpd96c00008rjnkx07u5sl2",
+            id: ezETHToken.id,
+          },
+          {
+            id: wrsETHToken.id,
           },
         ],
       },
       chain: {
         connect: {
-          id: modeChain.id,
+          id: "clzpkpc3y0000bv0dwohxsjpf",
         },
       },
     },
@@ -374,20 +446,36 @@ async function main() {
   await prisma.step.createMany({
     data: [
       {
-        name: "Supply USDC to Optimism via bridge",
-        strategy_id: modeLooptimismStrategy.id,
-        amount: "$100",
-        protocol_id: bridgeProtocol.id,
-        token_id: "clzpd95jk0005rjnkhyd8dxgu",
-        yield: "3.69",
+        name: "Swap half WETH for wrsETH",
+        strategy_id: liquidModeStrategy.id,
+        amount: "$50",
+        protocol_id: kimProtocol.id,
+        token_id: WETHToken.id,
+        yield: "-",
       },
       {
-        name: "Use Looptimism",
-        strategy_id: modeLooptimismStrategy.id,
-        amount: "~$51",
-        protocol_id: transferProtocol.id,
-        token_id: "clzpd95jk0005rjnkhyd8dxgu",
-        yield: "5.39",
+        name: "Swap half WETH for ezETH",
+        strategy_id: liquidModeStrategy.id,
+        amount: "$50",
+        protocol_id: kimProtocol.id,
+        token_id: WETHToken.id,
+        yield: "-",
+      },
+      {
+        name: "Deposit ezETH and wrsETH to Pool",
+        strategy_id: liquidModeStrategy.id,
+        amount: "$100",
+        protocol_id: kimProtocol.id,
+        token_id: ezETHToken.id,
+        yield: "-",
+      },
+      {
+        name: "Collect fees and reinvest",
+        strategy_id: liquidModeStrategy.id,
+        amount: "-",
+        protocol_id: kimProtocol.id,
+        token_id: ezETHToken.id,
+        yield: "~ 220%",
       },
     ],
   });
@@ -395,16 +483,12 @@ async function main() {
   await prisma.risk.createMany({
     data: [
       {
-        name: "APYs are not promised returns, they may vary due to market conditions",
-        strategy_id: modeLooptimismStrategy.id,
+        name: "APYs are not promised returns, they may vary due to market conditions, such less number of swaps ⇒ lesser fees",
+        strategy_id: liquidModeStrategy.id,
       },
       {
-        name: "You will be affected by price fluctuations of wBTC tokens",
-        strategy_id: modeLooptimismStrategy.id,
-      },
-      {
-        name: "Fund’s may get time to move between chains, leading to lesser yield than expected",
-        strategy_id: modeLooptimismStrategy.id,
+        name: "The ezETH/wrsETH pool is still small so there may be some slippages, our testing shows it at 1.5%",
+        strategy_id: liquidModeStrategy.id,
       },
     ],
   });
