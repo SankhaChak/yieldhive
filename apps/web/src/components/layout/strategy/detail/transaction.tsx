@@ -11,7 +11,12 @@ import { cn } from "@yieldhive/ui/lib/utils";
 import { motion } from "framer-motion";
 import { ChevronRight } from "lucide-react";
 import { useCallback, useState } from "react";
-import { useAccount, useSwitchChain, useWriteContract } from "wagmi";
+import {
+  useAccount,
+  useReadContract,
+  useSwitchChain,
+  useWriteContract,
+} from "wagmi";
 import { useSandboxStore } from "../../../../stores/useSandboxStore";
 import { useTransactionStore } from "../../../../stores/useTransactionStore";
 import { getContractABI } from "../../../../utils/api/contract";
@@ -42,8 +47,6 @@ const StrategyDetailTransaction = ({ strategy }: Props) => {
   //   ],
   //   args: [address as `0x${string}`],
   // });
-
-  const { writeContract } = useWriteContract();
 
   const [activeTab, setActiveTab] = useState<TRANSACTION_TABS>(
     TRANSACTION_TABS.DEPOSIT
@@ -90,6 +93,18 @@ const StrategyDetailTransaction = ({ strategy }: Props) => {
     },
   });
 
+  const { writeContract } = useWriteContract();
+  const { data: readContractData, refetch } = useReadContract({
+    abi: approveContractAbi,
+    address: "0x4200000000000000000000000000000000000006",
+    functionName: "allowance",
+    args: [address as string, strategy.contract_address as `0x${string}`],
+  });
+
+  console.log(
+    "🚀 ~ file: transaction.tsx:105 ~ StrategyDetailTransaction ~ readContractData:",
+    readContractData
+  );
   const handleTransaction = useCallback(() => {
     // TODO: Add check if amount is > invested amount for withdraw and amount > wallet balance for deposit
     if (!address) return;
@@ -114,24 +129,27 @@ const StrategyDetailTransaction = ({ strategy }: Props) => {
       });
     }
 
-    let approveContractParams: Parameters<typeof writeContract>[0] = {
-      abi: approveContractAbi,
-      address: "0x4200000000000000000000000000000000000006",
-      functionName: "approve",
-      args: [strategy.contract_address as `0x${string}`, amount * 10 ** 18],
-    };
-    console.log(
-      "🚀 ~ file: transaction.tsx:123 ~ handleTransaction ~ approveContractParams:",
-      approveContractParams
-    );
-
-    try {
-      writeContract(approveContractParams);
-    } catch (error) {
+    // @ts-ignore
+    if (readContractData < amount) {
+      let approveContractParams: Parameters<typeof writeContract>[0] = {
+        abi: approveContractAbi,
+        address: "0x4200000000000000000000000000000000000006",
+        functionName: "approve",
+        args: [strategy.contract_address as `0x${string}`, amount * 10 ** 18],
+      };
       console.log(
-        "🚀 ~ file: transaction.tsx:144 ~ handleTransaction ~ error:",
-        error
+        "🚀 ~ file: transaction.tsx:123 ~ handleTransaction ~ approveContractParams:",
+        approveContractParams
       );
+
+      try {
+        writeContract(approveContractParams);
+      } catch (error) {
+        console.log(
+          "🚀 ~ file: transaction.tsx:144 ~ handleTransaction ~ error:",
+          error
+        );
+      }
     }
 
     let writeContractParams: Parameters<typeof writeContract>[0] = {
