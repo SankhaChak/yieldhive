@@ -94,7 +94,7 @@ const StrategyDetailTransaction = ({ strategy }: Props) => {
   });
 
   const { writeContract } = useWriteContract();
-  const { data: readContractData } = useReadContract({
+  const { data: approvedAmount } = useReadContract({
     abi: approveContractAbi,
     address: "0x4200000000000000000000000000000000000006",
     functionName: "allowance",
@@ -104,16 +104,24 @@ const StrategyDetailTransaction = ({ strategy }: Props) => {
   const { data: investedAmount, refetch: refetchInvestedAmount } =
     useReadContract({
       abi: contractAbi,
-      address: address as `0x${string}`,
+      address: strategy.contract_address as `0x${string}`,
       functionName: "balanceOf",
       args: [address as string],
     }) as { data: bigint; refetch: () => void };
+
+  console.log(
+    "🚀 ~ file: transaction.tsx:105 ~ StrategyDetailTransaction ~ investedAmount:",
+    investedAmount
+  );
 
   const handleTransaction = useCallback(() => {
     const formattedAmount = amount * 10 ** 18;
 
     // TODO: Add check if amount is > invested amount for withdraw and amount > wallet balance for deposit
-    if (formattedAmount > Number(investedAmount ?? 0)) {
+    if (
+      formattedAmount > Number(investedAmount ?? 0) &&
+      activeTab === TRANSACTION_TABS.WITHDRAW
+    ) {
       return;
     }
 
@@ -139,7 +147,10 @@ const StrategyDetailTransaction = ({ strategy }: Props) => {
       });
     }
 
-    if (readContractData < formattedAmount) {
+    if (
+      approvedAmount < formattedAmount &&
+      activeTab === TRANSACTION_TABS.DEPOSIT
+    ) {
       let approveContractParams: Parameters<typeof writeContract>[0] = {
         abi: approveContractAbi,
         address: "0x4200000000000000000000000000000000000006",
@@ -185,6 +196,15 @@ const StrategyDetailTransaction = ({ strategy }: Props) => {
     try {
       writeContract(writeContractParams);
       refetchInvestedAmount();
+      // addTransaction({
+      //   action: activeTab === TRANSACTION_TABS.DEPOSIT ? "deposit" : "withdraw",
+      //   amount: formattedAmount,
+      //   currency: "USDC",
+      //   status: "completed",
+      //   timestamp: Date.now(),
+      //   isSandboxTransaction: false,
+      //   strategyId: strategy.id,
+      // });
     } catch (error) {
       console.log(
         "🚀 ~ file: transaction.tsx:155 ~ handleTransaction ~ error:",
