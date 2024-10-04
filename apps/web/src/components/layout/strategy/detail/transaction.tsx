@@ -65,16 +65,16 @@ const StrategyDetailTransaction = ({ strategy }: Props) => {
         : !transaction.isSandboxTransaction
     );
 
-  const totalInvestedAmount = filteredTransactions.reduce(
-    (acc, transaction) => {
-      if (transaction.action === "deposit") {
-        return acc + transaction.amount;
-      }
+  // const totalInvestedAmount = filteredTransactions.reduce(
+  //   (acc, transaction) => {
+  //     if (transaction.action === "deposit") {
+  //       return acc + transaction.amount;
+  //     }
 
-      return acc - transaction.amount;
-    },
-    0
-  );
+  //     return acc - transaction.amount;
+  //   },
+  //   0
+  // );
 
   const { data: contractAbi } = useQuery({
     queryKey: ["strategy", strategy.id],
@@ -99,14 +99,24 @@ const StrategyDetailTransaction = ({ strategy }: Props) => {
     address: "0x4200000000000000000000000000000000000006",
     functionName: "allowance",
     args: [address as string, strategy.contract_address as `0x${string}`],
-  });
+  }) as { data: bigint };
 
-  console.log(
-    "🚀 ~ file: transaction.tsx:105 ~ StrategyDetailTransaction ~ readContractData:",
-    readContractData
-  );
+  const { data: investedAmount, refetch: refetchInvestedAmount } =
+    useReadContract({
+      abi: contractAbi,
+      address: address as `0x${string}`,
+      functionName: "balanceOf",
+      args: [address as string],
+    }) as { data: bigint; refetch: () => void };
+
   const handleTransaction = useCallback(() => {
+    const formattedAmount = amount * 10 ** 18;
+
     // TODO: Add check if amount is > invested amount for withdraw and amount > wallet balance for deposit
+    if (formattedAmount > Number(investedAmount ?? 0)) {
+      return alert("Amount is greater than invested amount");
+    }
+
     if (!address) return;
     console.log({ address });
 
@@ -129,9 +139,6 @@ const StrategyDetailTransaction = ({ strategy }: Props) => {
       });
     }
 
-    const formattedAmount = amount * 10 ** 18;
-
-    // @ts-ignore
     if (readContractData < formattedAmount) {
       let approveContractParams: Parameters<typeof writeContract>[0] = {
         abi: approveContractAbi,
@@ -177,6 +184,7 @@ const StrategyDetailTransaction = ({ strategy }: Props) => {
 
     try {
       writeContract(writeContractParams);
+      refetchInvestedAmount();
     } catch (error) {
       console.log(
         "🚀 ~ file: transaction.tsx:155 ~ handleTransaction ~ error:",
@@ -266,10 +274,17 @@ const StrategyDetailTransaction = ({ strategy }: Props) => {
                 <h2 className="font-medium">Invested Amount</h2>
                 <div className="flex items-end gap-1">
                   <h3 className="text-lg font-semibold">
-                    {totalInvestedAmount.toLocaleString(undefined, {
+                    {(Number(investedAmount ?? 0) / 10 ** 18).toLocaleString(
+                      undefined,
+                      {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                      }
+                    )}
+                    {/* {totalInvestedAmount.toLocaleString(undefined, {
                       minimumFractionDigits: 2,
                       maximumFractionDigits: 2,
-                    })}
+                    })} */}
                   </h3>
                   {/* <button className="text-xs font-bold text-accent relative -top-1">
                     [Max]
