@@ -114,7 +114,7 @@ const StrategyDetailTransaction = ({ strategy }: Props) => {
 
     // TODO: Add check if amount is > invested amount for withdraw and amount > wallet balance for deposit
     if (formattedAmount > Number(investedAmount ?? 0)) {
-      return alert("Amount is greater than invested amount");
+      return;
     }
 
     if (!address) return;
