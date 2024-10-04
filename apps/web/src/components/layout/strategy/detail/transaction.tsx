@@ -268,6 +268,8 @@ const StrategyDetailTransaction = ({ strategy }: Props) => {
                     value={amount}
                     onChange={(e) => setAmount(Number(e.target.value))}
                     className="text-xs font-semibold focus-visible:ring-accent py-[9px] h-auto"
+                    type="number"
+                    step="any"
                   />
                   <Button size="sm" onClick={handleTransaction}>
                     {activeTab === TRANSACTION_TABS.DEPOSIT
