@@ -53,15 +53,16 @@ const StrategyCard = ({ strategy }: Props) => {
         </div>
       </div>
       <div className="w-full col-span-2 relative hidden md:block">
-        <div className="object-cover h-auto w-full md:!w-auto max-w-full md:absolute md:right-12 md:-bottom-8 ml-auto md:top-4 md:transform rounded-md transition-transform duration-300">
+        {/* <div className="object-cover h-auto w-full md:!w-auto max-w-full md:absolute md:right-12 md:-bottom-8 ml-auto md:top-4 md:transform rounded-md transition-transform duration-300">
           <h4 className="text-3xl font-bold">APY</h4>
           <p className="text-5xl font-extrabold">{strategy.apy}%</p>
-        </div>
-        {/* <img
+        </div> */}
+
+        <img
           src="https://via.placeholder.com/250x300"
           alt="Placeholder"
           className="object-cover h-auto w-full md:!w-auto max-w-full md:absolute md:-right-12 md:-bottom-8 md:top-4 md:transform md:-rotate-3 rounded-md group-hover:md:-rotate-6 transition-transform duration-300"
-        /> */}
+        />
       </div>
     </motion.div>
   );

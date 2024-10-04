@@ -54,16 +54,16 @@ const StrategyDetailTransaction = ({ strategy }: Props) => {
   const [amount, setAmount] = useState<number>(0);
 
   const isSandboxModeActive = useSandboxStore((state) => state.isActive);
-  const transactions = useTransactionStore((state) => state.transactions);
+  // const transactions = useTransactionStore((state) => state.transactions);
   const addTransaction = useTransactionStore((state) => state.addTransaction);
 
-  const filteredTransactions = transactions
-    .filter((transaction) => transaction.strategyId === strategy.id)
-    .filter((transaction) =>
-      isSandboxModeActive
-        ? transaction.isSandboxTransaction
-        : !transaction.isSandboxTransaction
-    );
+  // const filteredTransactions = transactions
+  //   .filter((transaction) => transaction.strategyId === strategy.id)
+  //   .filter((transaction) =>
+  //     isSandboxModeActive
+  //       ? transaction.isSandboxTransaction
+  //       : !transaction.isSandboxTransaction
+  //   );
 
   // const totalInvestedAmount = filteredTransactions.reduce(
   //   (acc, transaction) => {
