@@ -129,13 +129,15 @@ const StrategyDetailTransaction = ({ strategy }: Props) => {
       });
     }
 
+    const formattedAmount = amount * 10 ** 18;
+
     // @ts-ignore
-    if (readContractData < amount) {
+    if (readContractData < formattedAmount) {
       let approveContractParams: Parameters<typeof writeContract>[0] = {
         abi: approveContractAbi,
         address: "0x4200000000000000000000000000000000000006",
         functionName: "approve",
-        args: [strategy.contract_address as `0x${string}`, amount * 10 ** 18],
+        args: [strategy.contract_address as `0x${string}`, formattedAmount],
       };
       console.log(
         "🚀 ~ file: transaction.tsx:123 ~ handleTransaction ~ approveContractParams:",
@@ -163,11 +165,11 @@ const StrategyDetailTransaction = ({ strategy }: Props) => {
 
     if (activeTab === TRANSACTION_TABS.DEPOSIT) {
       writeContractParams.functionName = "deposit";
-      writeContractParams.args = [amount * (10 ^ 18), address];
+      writeContractParams.args = [formattedAmount, address];
     } else {
       writeContractParams.functionName = "withdraw";
       writeContractParams.args = [
-        amount * 10 ** 18,
+        formattedAmount,
         address,
         strategy.contract_address,
       ];
