@@ -150,6 +150,8 @@ const StrategyDetailTransaction = ({ strategy }: Props) => {
           error
         );
       }
+
+      return;
     }
 
     let writeContractParams: Parameters<typeof writeContract>[0] = {
