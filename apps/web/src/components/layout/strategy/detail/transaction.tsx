@@ -94,7 +94,7 @@ const StrategyDetailTransaction = ({ strategy }: Props) => {
   });
 
   const { writeContract } = useWriteContract();
-  const { data: readContractData, refetch } = useReadContract({
+  const { data: readContractData } = useReadContract({
     abi: approveContractAbi,
     address: "0x4200000000000000000000000000000000000006",
     functionName: "allowance",
