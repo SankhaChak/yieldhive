@@ -82,9 +82,18 @@ const StrategyDetailTransaction = ({ strategy }: Props) => {
     refetchOnWindowFocus: false,
   });
 
+  const { data: approveContractAbi } = useQuery({
+    queryKey: ["approveContract", strategy.id],
+    queryFn: async () => {
+      const { data } = await getContractABI("weth-approve");
+      return data;
+    },
+  });
+
   const handleTransaction = useCallback(() => {
     // TODO: Add check if amount is > invested amount for withdraw and amount > wallet balance for deposit
     if (!address) return;
+    console.log({ address });
 
     const contractChain = chains.find((chain) =>
       chain.name.toLowerCase().includes(strategy.chain.name.toLowerCase())
@@ -105,6 +114,22 @@ const StrategyDetailTransaction = ({ strategy }: Props) => {
       });
     }
 
+    let approveContractParams: Parameters<typeof writeContract>[0] = {
+      abi: approveContractAbi,
+      address: "0x4200000000000000000000000000000000000006",
+      functionName: "approve",
+      args: [strategy.contract_address as `0x${string}`, amount * (10 ^ 18)],
+    };
+
+    try {
+      writeContract(approveContractParams);
+    } catch (error) {
+      console.log(
+        "🚀 ~ file: transaction.tsx:144 ~ handleTransaction ~ error:",
+        error
+      );
+    }
+
     let writeContractParams: Parameters<typeof writeContract>[0] = {
       abi: contractAbi,
       address: strategy.contract_address as `0x${string}`,
@@ -114,17 +139,19 @@ const StrategyDetailTransaction = ({ strategy }: Props) => {
 
     if (activeTab === TRANSACTION_TABS.DEPOSIT) {
       writeContractParams.functionName = "deposit";
-      writeContractParams.args = [amount * (10 ^ 8), address];
+      writeContractParams.args = [amount * (10 ^ 18), address];
     } else {
       writeContractParams.functionName = "withdraw";
       writeContractParams.args = [
-        amount * (10 ^ 8),
+        amount * (10 ^ 18),
         address,
         strategy.contract_address,
       ];
     }
 
-    writeContract(writeContractParams);
+    try {
+      writeContract(writeContractParams);
+    } catch (error) {}
   }, [
     contractAbi,
     address,
