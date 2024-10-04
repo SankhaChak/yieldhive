@@ -151,7 +151,12 @@ const StrategyDetailTransaction = ({ strategy }: Props) => {
 
     try {
       writeContract(writeContractParams);
-    } catch (error) {}
+    } catch (error) {
+      console.log(
+        "🚀 ~ file: transaction.tsx:155 ~ handleTransaction ~ error:",
+        error
+      );
+    }
   }, [
     contractAbi,
     address,
