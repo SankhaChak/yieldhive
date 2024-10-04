@@ -109,11 +109,6 @@ const StrategyDetailTransaction = ({ strategy }: Props) => {
       args: [address as string],
     }) as { data: bigint; refetch: () => void };
 
-  console.log(
-    "🚀 ~ file: transaction.tsx:105 ~ StrategyDetailTransaction ~ investedAmount:",
-    investedAmount
-  );
-
   const handleTransaction = useCallback(() => {
     const formattedAmount = amount * 10 ** 18;
 
@@ -293,18 +288,8 @@ const StrategyDetailTransaction = ({ strategy }: Props) => {
               <div>
                 <h2 className="font-medium">Invested Amount</h2>
                 <div className="flex items-end gap-1">
-                  <h3 className="text-lg font-semibold">
-                    {(Number(investedAmount ?? 0) / 10 ** 18).toLocaleString(
-                      undefined,
-                      {
-                        minimumFractionDigits: 2,
-                        maximumFractionDigits: 2,
-                      }
-                    )}
-                    {/* {totalInvestedAmount.toLocaleString(undefined, {
-                      minimumFractionDigits: 2,
-                      maximumFractionDigits: 2,
-                    })} */}
+                  <h3 className="text-lg font-semibold" key={investedAmount}>
+                    {Number(investedAmount ?? 0) / 10 ** 18}
                   </h3>
                   {/* <button className="text-xs font-bold text-accent relative -top-1">
                     [Max]
