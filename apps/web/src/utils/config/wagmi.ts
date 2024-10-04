@@ -1,5 +1,6 @@
 import { defaultWagmiConfig } from "@web3modal/wagmi/react/config";
 import { http } from "viem";
+import { mode } from "viem/chains";
 import { ENV } from "./env";
 import { baseVMainnet, optimismVMainnet } from "./tenderly";
 
@@ -12,13 +13,14 @@ export const metadata = {
   icons: [],
 };
 
-export const chains = [baseVMainnet, optimismVMainnet] as const;
+export const chains = [mode, baseVMainnet, optimismVMainnet] as const;
 export const config = defaultWagmiConfig({
   chains,
   projectId,
   metadata,
   ssr: true,
   transports: {
+    [mode.id]: http(),
     [baseVMainnet.id]: http(
       "https://virtual.base.rpc.tenderly.co/d424c845-fe2a-4dac-8cdc-8276e0dfed48"
     ),
