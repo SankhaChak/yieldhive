@@ -110,18 +110,17 @@ const StrategyDetailTransaction = ({ strategy }: Props) => {
     }) as { data: bigint; refetch: () => void };
 
   const handleTransaction = useCallback(() => {
+    if (!address) return;
+
+    const isDeposit = activeTab === TRANSACTION_TABS.DEPOSIT;
+
     const formattedAmount = amount * 10 ** 18;
 
     // TODO: Add check if amount is > invested amount for withdraw and amount > wallet balance for deposit
-    if (
-      formattedAmount > Number(investedAmount ?? 0) &&
-      activeTab === TRANSACTION_TABS.WITHDRAW
-    ) {
+    if (formattedAmount > Number(investedAmount ?? 0) && !isDeposit) {
+      // TODO: Show a toast message
       return;
     }
-
-    if (!address) return;
-    console.log({ address });
 
     const contractChain = chains.find((chain) =>
       chain.name.toLowerCase().includes(strategy.chain.name.toLowerCase())
@@ -142,20 +141,13 @@ const StrategyDetailTransaction = ({ strategy }: Props) => {
       });
     }
 
-    if (
-      approvedAmount < formattedAmount &&
-      activeTab === TRANSACTION_TABS.DEPOSIT
-    ) {
+    if (approvedAmount < formattedAmount && isDeposit) {
       let approveContractParams: Parameters<typeof writeContract>[0] = {
         abi: approveContractAbi,
         address: "0x4200000000000000000000000000000000000006",
         functionName: "approve",
         args: [strategy.contract_address as `0x${string}`, formattedAmount],
       };
-      console.log(
-        "🚀 ~ file: transaction.tsx:123 ~ handleTransaction ~ approveContractParams:",
-        approveContractParams
-      );
 
       try {
         writeContract(approveContractParams);
@@ -176,16 +168,12 @@ const StrategyDetailTransaction = ({ strategy }: Props) => {
       args: [],
     };
 
-    if (activeTab === TRANSACTION_TABS.DEPOSIT) {
+    if (isDeposit) {
       writeContractParams.functionName = "deposit";
       writeContractParams.args = [formattedAmount, address];
     } else {
       writeContractParams.functionName = "withdraw";
-      writeContractParams.args = [
-        formattedAmount,
-        address,
-        strategy.contract_address,
-      ];
+      writeContractParams.args = [formattedAmount, address, address];
     }
 
     try {
@@ -289,7 +277,7 @@ const StrategyDetailTransaction = ({ strategy }: Props) => {
                 <h2 className="font-medium">Invested Amount</h2>
                 <div className="flex items-end gap-1">
                   <h3 className="text-lg font-semibold" key={investedAmount}>
-                    {Number(investedAmount ?? 0) / 10 ** 18}
+                    {Number(investedAmount ?? 0) / 10 ** 18} WETH
                   </h3>
                   {/* <button className="text-xs font-bold text-accent relative -top-1">
                     [Max]
