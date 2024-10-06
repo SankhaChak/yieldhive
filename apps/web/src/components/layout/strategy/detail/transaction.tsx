@@ -403,12 +403,12 @@ const StrategyDetailTransaction = ({ strategy }: Props) => {
                     type="number"
                     step="any"
                   />
-                  <Button size="sm" onClick={handleTransaction}>
-                    {activeTab === TRANSACTION_TABS.DEPOSIT
-                      ? "Deposit"
-                      : activeTab === TRANSACTION_TABS.WITHDRAW
-                        ? "Withdraw"
-                        : "Redeem"}
+                  <Button
+                    size="sm"
+                    onClick={handleTransaction}
+                    className="capitalize"
+                  >
+                    {activeTab}
                   </Button>
                 </div>
                 <p className="text-xs font-semibold text-primary/40 mt-1 pl-1">
