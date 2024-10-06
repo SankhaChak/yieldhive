@@ -60,7 +60,7 @@ const StrategyDetailBTS = ({ bts, chain }: Props) => {
                   Amount
                 </TableHead>
                 <TableHead className="text-primary/80 font-semibold p-0">
-                  Yield
+                  Yield (%)
                 </TableHead>
               </TableRow>
             </TableHeader>
@@ -97,10 +97,14 @@ const StrategyDetailBTS = ({ bts, chain }: Props) => {
                     </div>
                   </TableCell>
                   <TableCell className="!px-0 !py-2">
-                    <p>{chain.name}</p>
+                    <p className="text-center">{chain.name}</p>
                   </TableCell>
-                  <TableCell className="!px-0 !py-2">{step.amount}</TableCell>
-                  <TableCell className="!px-0 !py-2">{step.yield}%</TableCell>
+                  <TableCell className="!px-0 !py-2 text-center">
+                    {step.amount}
+                  </TableCell>
+                  <TableCell className="!px-0 !py-2 text-center">
+                    {step.yield}
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>

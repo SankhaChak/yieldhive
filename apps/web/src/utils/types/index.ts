@@ -16,6 +16,7 @@ export interface INavItem {
 export enum TRANSACTION_TABS {
   DEPOSIT = "deposit",
   WITHDRAW = "withdraw",
+  REDEEM = "redeem",
 }
 
 export interface Strategy {
@@ -36,3 +37,7 @@ export enum ModalName {
 }
 // EMBEDDED_ACCOUNTS_AUTH = "EMBEDDED ACCOUNTS AUTH",
 // EMBEDDED_ACCOUNTS_PROFILE = "EMBEDDED ACCOUNTS PROFILE",
+
+export const TRANSACTION_TAB_KEYS = Object.keys(TRANSACTION_TABS) as Array<
+  keyof typeof TRANSACTION_TABS
+>;

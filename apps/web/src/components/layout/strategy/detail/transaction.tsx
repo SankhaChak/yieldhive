@@ -10,7 +10,7 @@ import { Input } from "@yieldhive/ui/components/ui/input";
 import { cn } from "@yieldhive/ui/lib/utils";
 import { motion } from "framer-motion";
 import { ChevronRight } from "lucide-react";
-import { useCallback, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import {
   useAccount,
   useReadContract,
@@ -108,6 +108,33 @@ const StrategyDetailTransaction = ({ strategy }: Props) => {
       functionName: "balanceOf",
       args: [address as string],
     }) as { data: bigint; refetch: () => void };
+
+  const { data: totalAssets } = useReadContract({
+    abi: contractAbi,
+    address: strategy.contract_address as `0x${string}`,
+    functionName: "totalAssets",
+    args: [],
+  }) as { data: bigint };
+
+  const { data: totalSupply } = useReadContract({
+    abi: contractAbi,
+    address: strategy.contract_address as `0x${string}`,
+    functionName: "totalSupply",
+    args: [],
+  }) as { data: bigint };
+
+  const { data: balanceOf } = useReadContract({
+    abi: contractAbi,
+    address: strategy.contract_address as `0x${string}`,
+    functionName: "balanceOf",
+    args: [address as string],
+  }) as { data: bigint };
+
+  const totalValue = useMemo(() => {
+    if (!totalAssets || !balanceOf || !totalSupply) return 0;
+
+    return (totalAssets * balanceOf) / totalSupply;
+  }, [totalAssets, balanceOf, totalSupply]);
 
   const handleTransaction = useCallback(() => {
     if (!address) return;
@@ -229,6 +256,29 @@ const StrategyDetailTransaction = ({ strategy }: Props) => {
         {isConnected ? (
           <div className="h-full flex flex-col">
             <div className="flex items-center border-b">
+              {/* {TRANSACTION_TAB_KEYS.map((tab) => (
+                <Button
+                  onClick={() => setActiveTab(TRANSACTION_TABS[tab])}
+                  size="sm"
+                  variant="ghost"
+                  className={cn(
+                    "text-sm rounded-none text-primary/80 font-semibold relative hover:bg-secondary transition-colors duration-300 group",
+                    {
+                      "text-contrast hover:text-contrast":
+                        activeTab === TRANSACTION_TABS[tab],
+                    }
+                  )}
+                >
+                  <span className="relative z-10">Deposit</span>
+                  {activeTab === TRANSACTION_TABS.DEPOSIT && (
+                    <motion.span
+                      transition={{ duration: 0.2 }}
+                      layoutId="active-tab"
+                      className="w-full h-full absolute inset-0 bg-accent group-hover:bg-accent/80 transition-colors duration-300"
+                    />
+                  )}
+                </Button>
+              ))} */}
               <Button
                 onClick={() => setActiveTab(TRANSACTION_TABS.DEPOSIT)}
                 size="sm"
@@ -271,29 +321,77 @@ const StrategyDetailTransaction = ({ strategy }: Props) => {
                   />
                 )}
               </Button>
+              <Button
+                onClick={() => setActiveTab(TRANSACTION_TABS.REDEEM)}
+                size="sm"
+                variant="ghost"
+                className={cn(
+                  "text-sm rounded-none text-primary/80 font-semibold relative hover:bg-secondary transition-colors duration-300 group",
+                  {
+                    "text-contrast hover:text-contrast":
+                      activeTab === TRANSACTION_TABS.REDEEM,
+                  }
+                )}
+              >
+                <span className="relative z-10">Redeem</span>
+                {activeTab === TRANSACTION_TABS.REDEEM && (
+                  <motion.span
+                    transition={{ duration: 0.2 }}
+                    layoutId="active-tab"
+                    className="w-full h-full absolute inset-0 bg-accent group-hover:bg-accent/80 transition-colors duration-300"
+                  />
+                )}
+              </Button>
             </div>
             <div className="p-4 flex-1 flex flex-col justify-between">
-              <div>
-                <h2 className="font-medium">Total Shares</h2>
-                <div className="flex items-end gap-1">
-                  <h3 className="text-lg font-semibold" key={investedAmount}>
-                    {Number(investedAmount ?? 0) / 10 ** 18} WETH
-                  </h3>
-                  {/* <button className="text-xs font-bold text-accent relative -top-1">
-                    [Max]
-                  </button> */}
+              <div className="flex items-center justify-between">
+                <div>
+                  <h2 className="font-medium">Total Shares</h2>
+                  <div className="flex items-end gap-1">
+                    <h3 className="text-lg font-semibold" key={investedAmount}>
+                      {Number(investedAmount ?? 0) / 10 ** 18}{" "}
+                      {strategy.name === "LiquidMode" && "LMT"}
+                    </h3>
+                    {/* <button className="text-xs font-bold text-accent relative -top-1">
+                      [Max]
+                    </button> */}
+                  </div>
+
+                  {/* <h2 className="font-medium">
+                    {activeTab === TRANSACTION_TABS.DEPOSIT
+                      ? "Deposit USDC"
+                      : "Withdraw USDC"}
+                  </h2> */}
+                  {/* <div className="flex items-end gap-1">
+                    <h3 className="text-lg font-semibold">0.00</h3>
+                    <button className="text-xs font-bold text-accent relative -top-1">
+                      [Max]
+                    </button>
+                  </div> */}
                 </div>
-                {/* <h2 className="font-medium">
-                  {activeTab === TRANSACTION_TABS.DEPOSIT
-                    ? "Deposit USDC"
-                    : "Withdraw USDC"}
-                </h2> */}
-                {/* <div className="flex items-end gap-1">
-                  <h3 className="text-lg font-semibold">0.00</h3>
-                  <button className="text-xs font-bold text-accent relative -top-1">
-                    [Max]
-                  </button>
-                </div> */}
+                <div className="flex flex-col items-end">
+                  <h2 className="font-medium">Total Value</h2>
+                  <div className="flex items-end gap-1">
+                    <h3 className="text-lg font-semibold" key={investedAmount}>
+                      {Number(totalValue) / 10 ** 18}{" "}
+                      {strategy.name === "LiquidMode" && "WETH"}
+                    </h3>
+                    {/* <button className="text-xs font-bold text-accent relative -top-1">
+                      [Max]
+                    </button> */}
+                  </div>
+                  {/* <h2 className="font-medium">
+                    {activeTab === TRANSACTION_TABS.DEPOSIT
+                      ? "Deposit USDC"
+                      : "Withdraw USDC"}
+                  </h2> */}
+                  {/* <div className="flex items-end gap-1">
+                    <h3 className="text-lg font-semibold">0.00</h3>
+                    <button className="text-xs font-bold text-accent relative -top-1">
+                      [Max]
+                    </button>
+                  </div> */}
+                </div>
               </div>
               <div>
                 <div className="flex gap-3 items-center mt-auto">
@@ -308,7 +406,9 @@ const StrategyDetailTransaction = ({ strategy }: Props) => {
                   <Button size="sm" onClick={handleTransaction}>
                     {activeTab === TRANSACTION_TABS.DEPOSIT
                       ? "Deposit"
-                      : "Withdraw"}
+                      : activeTab === TRANSACTION_TABS.WITHDRAW
+                        ? "Withdraw"
+                        : "Redeem"}
                   </Button>
                 </div>
                 <p className="text-xs font-semibold text-primary/40 mt-1 pl-1">
