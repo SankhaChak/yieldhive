@@ -350,7 +350,7 @@ const StrategyDetailTransaction = ({ strategy }: Props) => {
                   <div className="flex items-end gap-1">
                     <h3 className="text-lg font-semibold" key={investedAmount}>
                       {Number(investedAmount ?? 0) / 10 ** 18}{" "}
-                      {strategy.name === "LiquidMode" && "LMT"}
+                      {strategy.slug === "liquid-mode" && "LMT"}
                     </h3>
                     {/* <button className="text-xs font-bold text-accent relative -top-1">
                       [Max]
@@ -374,7 +374,7 @@ const StrategyDetailTransaction = ({ strategy }: Props) => {
                   <div className="flex items-end gap-1">
                     <h3 className="text-lg font-semibold" key={investedAmount}>
                       {Number(totalValue) / 10 ** 18}{" "}
-                      {strategy.name === "LiquidMode" && "WETH"}
+                      {strategy.slug === "liquid-mode" && "WETH"}
                     </h3>
                     {/* <button className="text-xs font-bold text-accent relative -top-1">
                       [Max]
