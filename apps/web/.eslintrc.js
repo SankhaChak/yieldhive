@@ -23,5 +23,6 @@ module.exports = {
     "@typescript-eslint/prefer-ts-expect-error": "off",
     "@typescript-eslint/no-empty-interface": "off",
     "no-bitwise": "off",
+    "@typescript-eslint/array-type": "off",
   },
 };
